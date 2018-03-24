@@ -26,7 +26,14 @@ namespace WarteSchlange.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer("Server=tcp:warteschlangesqlserver.database.windows.net,1433;Initial Catalog=WarteSchlange.SQL;Persist Security Info=False;User ID=su;Password=Programmateur123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader()
+                                      .AllowCredentials());
+            });
             services.AddMvc();
         }
 
@@ -38,9 +45,7 @@ namespace WarteSchlange.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder.AllowAnyOrigin()
-                                          .AllowAnyHeader()
-                                          .AllowAnyMethod());
+            app.UseCors("CorsPolicy");
 
             app.UseMvc();
         }
