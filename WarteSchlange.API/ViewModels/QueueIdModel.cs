@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace WarteSchlange.API.ViewModels
 {
-    public class IntModel
+    public class QueueIdModel
     {
-        public int Value { get; set; }
+        public int QueueId { get; set; }
     }
 }

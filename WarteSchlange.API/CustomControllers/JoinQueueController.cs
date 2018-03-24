@@ -23,7 +23,7 @@ namespace WarteSchlange.API.Controllers
         }
 
         [HttpPost]
-        public async Task<QueueEntryErrorableModel> JoinQueue([FromBody] IntModel queueId)
+        public async Task<QueueEntryErrorableModel> JoinQueue([FromBody] QueueIdModel queueIdModel)
         {
             QueueEntryErrorableModel result = null;
 
@@ -34,7 +34,7 @@ namespace WarteSchlange.API.Controllers
             QueueEntryModel queueEntry = new QueueEntryModel
             {
                 UserId = 42, //TODO: Change
-                QueueId = queueId.Value,
+                QueueId = queueIdModel.QueueId,
                 EntryTime = DateTime.Now,
                 Priority = 0,
                 IdentificationCode = "Yellow Bear" //TODO: Change
@@ -55,7 +55,6 @@ namespace WarteSchlange.API.Controllers
 
             }
 
-            // Insert QueueEntry (Anonymous)
             // IdentificationCode = <unique name>
 
             return result;
