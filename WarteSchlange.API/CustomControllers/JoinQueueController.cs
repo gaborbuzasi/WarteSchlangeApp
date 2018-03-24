@@ -25,7 +25,7 @@ namespace WarteSchlange.API.Controllers
         [HttpPost]
         public async Task<QueueEntryErrorableModel> JoinQueue([FromBody] QueueIdModel queueIdModel)
         {
-            QueueEntryErrorableModel result = null;
+            QueueEntryErrorableModel result = new QueueEntryErrorableModel();
 
             // TODO: Check Queue
 
@@ -39,10 +39,11 @@ namespace WarteSchlange.API.Controllers
                 Priority = 0,
                 IdentificationCode = "Yellow Bear" //TODO: Change
             };
-
-            result = new QueueEntryErrorableModel(queueEntry);
-
+            
             _context.QueueEntries.Add(queueEntry);
+
+            bool hasError = false;
+            string errorMessage = null;
 
             try
             {
@@ -52,8 +53,13 @@ namespace WarteSchlange.API.Controllers
             {
                 result.HasError = true;
                 result.ErrorMessage = "An Error occured"; // TODO
-
             }
+
+            result = new QueueEntryErrorableModel(queueEntry)
+            {
+                HasError = hasError,
+                ErrorMessage = errorMessage
+            };
 
             // IdentificationCode = <unique name>
 
