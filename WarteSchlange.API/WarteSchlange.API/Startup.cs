@@ -25,7 +25,7 @@ namespace WarteSchlange.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<QueueContext>(opt => opt.UseInMemoryDatabase("QueueList"));
+            services.AddDbContext<MainContext>(opt => opt.UseInMemoryDatabase("QueueList"));
             services.AddMvc();
         }
 

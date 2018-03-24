@@ -13,9 +13,9 @@ namespace WarteSchlange.API.Controllers
     [Route("api/Queue")]
     public class QueueController : Controller
     {
-        private readonly QueueContext _context;
+        private readonly MainContext _context;
 
-        public QueueController(QueueContext context)
+        public QueueController(MainContext context)
         {
             _context = context;
         }
