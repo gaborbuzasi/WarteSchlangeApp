@@ -11,8 +11,8 @@ using WarteSchlange.API.Models;
 namespace WarteSchlange.API.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20180324203621_addedId")]
-    partial class addedId
+    [Migration("20180324204313_adddedAverageWaitTimeSecondsColumn")]
+    partial class adddedAverageWaitTimeSecondsColumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -129,6 +129,8 @@ namespace WarteSchlange.API.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("AllowMultipleEntries");
+
+                    b.Property<int>("AverageWaitTimeSeconds");
 
                     b.Property<int>("CompanyId");
 
