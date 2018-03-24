@@ -34,8 +34,10 @@
             }
             #row{
                 height: 40px;
+                padding: 7px 0px;
                 border-bottom: 1px solid grey;
                 display: inline-flex;
+                width: 100%;
             }
             #row:last-child{
                 border: none;
@@ -50,10 +52,13 @@
             #cellicon{
                 height: 40px;
                 width: 40px;
-                padding-right: 5px;
+                padding-right: 15px;
+                padding-left: 5px
                 
             }
-            
+            #listicon{
+                height: 40px;
+            }
             #time{
                 font-size: 70px;
             }
@@ -64,8 +69,13 @@
 
             
         </style>
+        <script>
+            function askForCorrectness() {
+                alert('Do you want to queue?')
+            }
+        </script>
     </head>
-    <body>
+    <body onload="return askForCorrectness()">
         <div id="head">
         <h1>You are in the queue</h1>
             <span id="subtitle">Remaining Time</span><br>
@@ -77,23 +87,55 @@
             <div id="listbox">
                 <div id="listheading">Waiting Information</div>
                 <div id="row">
-                    <div id="cellicon"><img src="" id="listicon"></div>
+                    <div id="cellicon"><img src="person.png" id="listicon"></div>
                     <div id="celltext">6 persons before</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="" id="listicon">
+                        <img src="average.jpg" id="listicon">
                     </div>
-                    <div id="celltext">Average Time: ~10 min</div>
+                    <div id="celltext">Average Time ~10 min</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="up.png" id="listicon">
+                    </div>
+                    <div id="celltext">Max Time Customer</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="down.png" id="listicon">
+                    </div>
+                    <div id="celltext">Min Time Customer</div>
                 </div>
             </div>
 
             <div id="listbox">
-                <span id="listheading"></span>
-                <ul>
-                    <li></li>
-                    <li></li>
-                </ul>
+                <div id="listheading">Company's Name</div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="location.png" id="listicon">
+                    </div>
+                    <div id="celltext">Karlsruhe</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="time.png" id="listicon">
+                    </div>
+                    <div id="celltext">Mo. -Fr. 08:00 - 19:00<br>Sa. 09:00-13:00</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="web.png" id="listicon">
+                    </div>
+                    <div id="celltext">www.company.de</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="phone.png" id="listicon">
+                    </div>
+                    <div id="celltext">+049 30300 243222</div>
+                </div>
             </div>
 
             <div id="listbox">
