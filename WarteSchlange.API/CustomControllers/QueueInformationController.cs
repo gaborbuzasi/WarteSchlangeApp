@@ -22,7 +22,7 @@ namespace WarteSchlange.API.CustomControllers
 
         [Route("PositionInformation")]
         [HttpGet]
-        public async Task<QueueInformationModel> QueueInformation([FromRoute] int queueItemId)
+        public QueueInformationModel QueueInformation([FromRoute] int queueItemId)
         {
 
             try
@@ -31,19 +31,18 @@ namespace WarteSchlange.API.CustomControllers
 
                 // Get all older entries in same queue
                 // TODO: Priority
-                int position = _context.QueueEntries.Where(item => item.EntryTime < myEntry.EntryTime && item.QueueId == myEntry.QueueId).Count() + 1;
-                //int averageWaitTime = _context.Queues.Where(item => item.Id == myEntry.QueueId).Single().
-                    return null;
-                //return new QueueInformationModel();
+                int olderItems = _context.QueueEntries.Where(item => item.EntryTime < myEntry.EntryTime && item.QueueId == myEntry.QueueId).Count();
+                int averageWaitTime = _context.Queues.Where(item => item.Id == myEntry.QueueId).Single().AverageWaitTimeSeconds;
+                return new QueueInformationModel(olderItems*averageWaitTime, olderItems+1);
 
             }
             catch (Exception)
             {
-                throw; //up
+                throw; //TODO: some error handling
             }
             
 
-            return null;
+            
         }
     }
 }
