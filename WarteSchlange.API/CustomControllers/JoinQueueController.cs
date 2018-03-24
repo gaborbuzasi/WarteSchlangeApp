@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WarteSchlange.API.Models;
 using WarteSchlange.API.ViewModels;
 
@@ -21,21 +22,38 @@ namespace WarteSchlange.API.Controllers
             _context = context;
         }
 
-        public QueueEntryErrorableModel JoinQueue(int queueId)
+        [HttpPost]
+        public async Task<QueueEntryErrorableModel> JoinQueue([FromBody] IntModel queueId)
         {
-            QueueEntryErrorableModel result = new QueueEntryErrorableModel();
+            QueueEntryErrorableModel result = null;
 
             // TODO: Check Queue
 
             // TODO: Generate Unique name for queue
 
-            QueueEntryModel queueEntry = new QueueEntryModel();
-            queueEntry.UserId = 42; //TODO: Change
-            queueEntry.QueueId = queueId;
-            queueEntry.EntryTime = DateTime.Now;
-            queueEntry.Priority = 0;
-            queueEntry.IdentificationCode = "Yellow Bear"; //TODO: Change
+            QueueEntryModel queueEntry = new QueueEntryModel
+            {
+                UserId = 42, //TODO: Change
+                QueueId = queueId.Value,
+                EntryTime = DateTime.Now,
+                Priority = 0,
+                IdentificationCode = "Yellow Bear" //TODO: Change
+            };
 
+            result = new QueueEntryErrorableModel(queueEntry);
+
+            _context.QueueEntries.Add(queueEntry);
+
+            try
+            {
+                await _context.SaveChangesAsync(); 
+            }
+            catch(DbUpdateConcurrencyException ex)
+            {
+                result.HasError = true;
+                result.ErrorMessage = "An Error occured"; // TODO
+
+            }
 
             // Insert QueueEntry (Anonymous)
             // IdentificationCode = <unique name>
