@@ -13,12 +13,19 @@ namespace WarteSchlange.API.Controllers
     [Route("api/joinQueue")]
     public class JoinQueueController : Controller
     {
-
         public QueueEntryErrorableModel JoinQueue(long queueId)
         {
             QueueEntryErrorableModel result = new QueueEntryErrorableModel();
 
+            // TODO: Check Queue
 
+            // Generate Unique name for queue
+
+            // Insert QueueEntry (Anonymous)
+            // QueueId = queueId
+            // EntryTime = Date.now()
+            // Priority = 0
+            // IdentificationCode = <unique name>
 
             return result;
         }
