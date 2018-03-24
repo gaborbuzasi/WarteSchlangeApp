@@ -15,7 +15,7 @@ namespace WarteSchlange.API.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<QueueEntryModel>().HasKey(x => new { x.QueueId, x.UserId });
+            //modelBuilder.Entity<QueueEntryModel>().HasKey(x => new { x.QueueId, x.UserId });
         }
 
         public DbSet<CompanyModel> Companies { get; set; }
