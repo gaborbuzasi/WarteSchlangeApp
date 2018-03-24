@@ -14,12 +14,14 @@
                         if (request.readState === 2 && request.status == 200) {
                             var json = JSON.parse(request.responseText);
                             console.log("Connect is established!")
+                        
 
                         }
 
                     };
                     var dataToSend = JSON.stringify({"QueueId":2});
                     request.send(dataToSend);
+                    conosole.log(request.responseText);
                 }
         
         </script>
