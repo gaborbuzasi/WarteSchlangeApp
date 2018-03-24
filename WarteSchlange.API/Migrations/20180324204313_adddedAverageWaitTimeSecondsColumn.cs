@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WarteSchlange.API.Migrations
 {
-    public partial class Initia : Migration
+    public partial class adddedAverageWaitTimeSecondsColumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,6 +35,20 @@ namespace WarteSchlange.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Metadata",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Keyword1 = table.Column<string>(nullable: true),
+                    Keyword2 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Metadata", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,6 +114,7 @@ namespace WarteSchlange.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AllowMultipleEntries = table.Column<bool>(nullable: false),
+                    AverageWaitTimeSeconds = table.Column<int>(nullable: false),
                     CompanyId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     ImageId = table.Column<int>(nullable: false),
@@ -117,13 +132,13 @@ namespace WarteSchlange.API.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Queues_Images_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Queues_OpeningTimes_OpeningTimeId",
                         column: x => x.OpeningTimeId,
@@ -184,6 +199,9 @@ namespace WarteSchlange.API.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Logs");
+
+            migrationBuilder.DropTable(
+                name: "Metadata");
 
             migrationBuilder.DropTable(
                 name: "QueueEntries");

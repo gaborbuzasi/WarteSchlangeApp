@@ -74,6 +74,20 @@ namespace WarteSchlange.API.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("WarteSchlange.API.Models.MetadataModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Keyword1");
+
+                    b.Property<string>("Keyword2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Metadata");
+                });
+
             modelBuilder.Entity("WarteSchlange.API.Models.OpeningTimeModel", b =>
                 {
                     b.Property<int>("Id")
@@ -114,6 +128,8 @@ namespace WarteSchlange.API.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("AllowMultipleEntries");
+
+                    b.Property<int>("AverageWaitTimeSeconds");
 
                     b.Property<int>("CompanyId");
 
