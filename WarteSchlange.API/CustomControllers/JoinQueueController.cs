@@ -12,7 +12,7 @@ using WarteSchlange.API.ViewModels;
 namespace WarteSchlange.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/joinQueue")]
+    [Route("api/JoinQueue")]
     public class JoinQueueController : Controller
     {
         private readonly MainContext _context;

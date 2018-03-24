@@ -15,14 +15,13 @@ namespace WarteSchlange.API.CustomControllers
     {
         private readonly MainContext _context;
 
-        QueueInformationController(MainContext context)
+        public QueueInformationController(MainContext context)
         {
             _context = context;
         }
-
-        [Route("PositionInformation")]
-        [HttpGet]
-        public QueueInformationModel QueueInformation([FromRoute] int queueItemId)
+        
+        [HttpGet("PositionInformation/{queueItemId}")]
+        public QueueInformationModel QueueInformation(int queueItemId)
         {
             try
             {
@@ -33,13 +32,19 @@ namespace WarteSchlange.API.CustomControllers
                 QueueModel queue = _context.Queues.Where(item => item.Id == myEntry.QueueId).Single();
                 int olderItems = _context.QueueEntries.Where(item => item.EntryTime < myEntry.EntryTime && item.QueueId == myEntry.QueueId).Count();
                 int averageWaitTime = queue.AverageWaitTimeSeconds;
-                return new QueueInformationModel(olderItems*averageWaitTime, olderItems+1, olderItems < queue.AtTheReadyCount );
-
+                return new QueueInformationModel(olderItems * averageWaitTime, olderItems+1, olderItems < queue.AtTheReadyCount );
             }
             catch (Exception)
             {
                 throw; //TODO: some error handling
             }
+        }
+
+        [HttpGet("getEntriesInQueue/{queueItemId}")]
+        public IEnumerable<QueueEntryModel> GetEntriesInQueue(int queueItemId)
+        {
+            var entries = _context.QueueEntries.Where(entry => entry.QueueId == queueItemId);
+            return entries;
         }
     }
 }
