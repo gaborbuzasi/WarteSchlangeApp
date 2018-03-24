@@ -20,7 +20,7 @@ namespace WarteSchlange.API.CustomControllers
             _context = context;
         }
         
-        [HttpGet("PositionInformation/{queueItemId}")]
+        [HttpGet("positionInformation/{queueItemId}")]
         public QueueInformationModel QueueInformation(int queueItemId)
         {
             try
@@ -43,7 +43,7 @@ namespace WarteSchlange.API.CustomControllers
         [HttpGet("getEntriesInQueue/{queueItemId}")]
         public IEnumerable<QueueEntryModel> GetEntriesInQueue(int queueItemId)
         {
-            var entries = _context.QueueEntries.Where(entry => entry.QueueId == queueItemId);
+            var entries = _context.QueueEntries.Where(entry => entry.QueueId == queueItemId).OrderBy( item => item.EntryTime );
             return entries;
         }
     }
