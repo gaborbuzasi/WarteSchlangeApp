@@ -1,0 +1,96 @@
+  body {
+      background-color: #bbbbbb;
+      width: 100%;
+      height: 100%;
+      font-family: 'Open Sans', sans-serif;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      font-size: 17px;
+      color: rgba(0, 0, 0, 0.815)
+  }
+
+  #head {
+      background-color: orange;
+      width: 100%;
+      text-align: center;
+      padding: 5px 0 5px;
+      margin: 0px;
+      transition: 1s ease-in-out;
+  }
+  #head:hover{
+      padding:50px 0 50px;
+  }
+
+  #listbox {
+      background-color: white;
+      padding: 7px;
+      margin: 40px;
+      text-align: left;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+  #landingPicture{
+      width:100%;
+      margin: 10px 0px;
+  }
+
+  #listheading {
+      font-size: 22px;
+      font-weight: bold;
+      padding: 7px;
+    text-align: center;
+    background-color: #e4e4e4;
+    border-bottom: 1px solid #d0d0d0;
+    margin: -7px;
+    margin-bottom: 5px
+  }
+
+  #row {
+      height: 40px;
+      padding: 7px 0px;
+      border-bottom: 1px solid grey;
+      display: inline-flex;
+      width: 100%;
+  }
+
+  #row:last-child {
+      border: none;
+  }
+
+  #celltext {
+      height: 40px;
+      width: 300px;
+      vertical-align: middle;
+      display: flex;
+      align-items: center;
+  }
+
+  #cellicon {
+      height: 40px;
+      width: 40px;
+      padding-right: 15px;
+      padding-left: 5px
+  }
+
+  #listicon {
+      height: 40px;
+  }
+
+  #time {
+      font-size: 70px;
+  }
+
+  #timeformat {
+      font-size: 18px;
+      text-transform: uppercase;
+  }
+  #button{
+      background-color: red;
+      color: white;
+      padding: 20px 60px;
+      margin: 10px;
+      border-radius: 90px;
+      text-decoration: none;
+  }
+

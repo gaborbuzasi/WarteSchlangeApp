@@ -13,6 +13,5 @@ namespace WarteSchlange.API.Models
 
         public string Keyword1 { get; set; }
         public string Keyword2 { get; set; }
-
     }
 }
