@@ -5,17 +5,13 @@
         <title>Registerd! - Please Wait</title>
         <link href="style.css" type="text/css" rel="stylesheet">
         <script>
-            function askForCorrectness() {
-                alert('Do you want to queue?')
-            }
-            function timer(){
-                var countDownTime = new Date("Sep 5, 2018, 15:12:12").getTime();
-                var x setInterval(function() {
-                    var now = new Date().getTime();
-                    var distance = c
-                })
-
-            }
+           
+         function httpGet() {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("GET", "https://warteschlangeapi.azurewebsites.net/api/queueInformation/positionInformation/1", false); // false for synchronous request
+                xmlHttp.send(null);
+                document.getElementById("celltext2").innerHTML(xmlHttp.responseText);
+        }
            
         </script>
     </head>
@@ -33,7 +29,7 @@
                 <div id="listheading">Waiting Information</div>
                 <div id="row">
                     <div id="cellicon"><img src="person.png" id="listicon"></div>
-                    <div id="celltext">6 persons before</div>
+                    <div id="celltext2">6 persons before</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
