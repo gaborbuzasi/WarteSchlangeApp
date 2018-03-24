@@ -10,5 +10,16 @@ namespace WarteSchlange.API.ViewModels
     {
         public bool HasError { get; set; }
         public string ErrorMessage { get; set; }
+
+        public QueueEntryErrorableModel()
+        {
+
+        }
+
+        public QueueEntryErrorableModel(QueueEntryModel qem) : base(qem)
+        {
+            HasError = false;
+            ErrorMessage = "";
+        }
     }
 }

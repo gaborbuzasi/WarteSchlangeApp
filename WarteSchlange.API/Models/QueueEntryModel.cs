@@ -18,5 +18,19 @@ namespace WarteSchlange.API.Models
         public int Priority { get; set; }
         public string IdentificationCode { get; set; }
 
+        public QueueEntryModel()
+        {
+
+        }
+
+        public QueueEntryModel(QueueEntryModel copy)
+        {
+            Id = copy.Id;
+            QueueId = copy.QueueId;
+            UserId = copy.UserId;
+            EntryTime = copy.EntryTime;
+            Priority = copy.Priority;
+            IdentificationCode = copy.IdentificationCode;
+        }
     }
 }
