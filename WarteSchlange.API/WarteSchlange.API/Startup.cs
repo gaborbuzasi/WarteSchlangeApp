@@ -25,7 +25,7 @@ namespace WarteSchlange.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MainContext>(opt => opt.UseInMemoryDatabase("QueueList"));
+            services.AddDbContext<MainContext>(opt => opt.UseSqlServer("Server=tcp:warteschlangesqlserver.database.windows.net,1433;Initial Catalog=WarteSchlange.SQL;Persist Security Info=False;User ID=su;Password=Programmateur123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             services.AddMvc();
         }
 
