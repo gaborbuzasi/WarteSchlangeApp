@@ -39,7 +39,8 @@ namespace WarteSchlange.API
             }
 
             app.UseCors(builder => builder.AllowAnyOrigin()
-                                          .AllowAnyHeader());
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod());
 
             app.UseMvc();
         }
