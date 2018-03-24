@@ -21,6 +21,7 @@ namespace WarteSchlange.API.Models
         public DbSet<CompanyModel> Companies { get; set; }
         public DbSet<ImagesModel> Images { get; set; }
         public DbSet<LogModel> Logs { get; set; }
+        public DbSet<MetadataModel> Metadata { get; set; }
         public DbSet<OpeningTimeModel> OpeningTimes { get; set; }
         public DbSet<QueueModel> Queues { get; set; }
         public DbSet<QueueEntryModel> QueueEntries { get; set; }
