@@ -11,9 +11,10 @@ using WarteSchlange.API.Models;
 namespace WarteSchlange.API.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20180324165227_added-errorlevel-column")]
+    partial class addederrorlevelcolumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
