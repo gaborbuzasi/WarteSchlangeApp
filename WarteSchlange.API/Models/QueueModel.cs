@@ -19,6 +19,7 @@ namespace WarteSchlange.API.Models
         public bool RequireSignup { get; set; }
         public int ImageId { get; set; }
         public int AverageWaitTimeSeconds { get; set; }
+        public int AtTheReadyCount { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
 

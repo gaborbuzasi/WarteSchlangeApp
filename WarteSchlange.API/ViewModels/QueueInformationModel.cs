@@ -10,10 +10,12 @@ namespace WarteSchlange.API.ViewModels
         
         public int EstimatedWaitTime { get; set; }
         public int QueuePosition { get; set; }
+        public bool AtTheReady { get; set; }
 
-        public QueueInformationModel(int EstimatedWaitTime, int QueuePosition) {
-            this.EstimatedWaitTime = EstimatedWaitTime;
-            this.QueuePosition = QueuePosition;
+        public QueueInformationModel(int estimatedWaitTime, int queuePosition, bool atTheReady) {
+            this.EstimatedWaitTime = estimatedWaitTime;
+            this.QueuePosition = queuePosition;
+            this.AtTheReady = atTheReady;
         }
     }
 }
