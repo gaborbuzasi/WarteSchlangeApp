@@ -1,0 +1,73 @@
+
+<html>
+    <head>
+        <title>DigitalQ App</title>
+        <link href="style.css" type="text/css" rel="stylesheet">
+        <script>
+             function postQueueEntry() {
+                    var request = new XMLHttpRequest();
+                    var postDestination = "https://warteschlangeapi.azurewebsites.net/api/joinQueue";
+                    request.open("POST", postDestination, true);
+                    request.setRequestHeader("Content-type", "application/json");
+                    request.onreadystatechange = function () {
+                        if (request.readState === 2 && request.status == 200) {
+                            var json = JSON.parse(request.responseText);
+                            console.log("Connect is established!")
+
+                        }
+
+                    };
+                    var dataToSend = JSON.stringify({"QueueId":2});
+                    request.send(dataToSend);
+                }
+        
+        </script>
+    </head>
+    <body>
+        <div id="main">
+            <h1>Welcome at CompanyXY</h1>
+            <h2>Do you want to queue?</h2>
+            <div id="listbox">
+          
+            <div id="listheading">Rollcoaster Queue</div>
+                <img id="landingPicture" src="achterbahn.jpg" />
+            <div id="text">
+                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+            </div>
+            <div id="row">
+                <div id="cellicon">
+                    <img src="time.png" id="listicon">
+                </div>
+                <div id="celltext">Mo. -Fr. 08:00 - 19:00
+                    <br>Sa. 09:00-13:00</div>
+            </div>
+            <div id="row">
+                <div id="cellicon">
+                    <img src="starttime.png" id="listicon">
+                </div>
+                <div id="celltext">You entered at 08:43:21</div>
+            </div>
+            <div id="row">
+                <div id="cellicon">
+                    <img src="signin.png" id="listicon">
+                </div>
+                <div id="celltext">No sign-in required</div>
+            </div>
+            </div>
+          
+
+            <a onclick="return postQueueEntry()" id="button">Queue</a> 
+
+            <div id="listbox">
+                <div id="listheading">Required to take with</div>
+                <div id="text">
+                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                        aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergre 
+                </div>
+            </div>
+        
+
+        </div>
+    </body>
+</html>
