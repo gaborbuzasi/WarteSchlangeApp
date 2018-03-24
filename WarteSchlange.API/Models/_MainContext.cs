@@ -13,12 +13,17 @@ namespace WarteSchlange.API.Models
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<QueueEntryModel>().HasKey(x => new { x.QueueId, x.UserId });
+        }
 
         public DbSet<CompanyModel> Companies { get; set; }
-        public DbSet<QueueModel> Queues { get; set; }
-        public DbSet<UserModel> Users { get; set; }
+        public DbSet<ImagesModel> Images { get; set; }
         public DbSet<LogModel> Logs { get; set; }
-
-
+        public DbSet<OpeningTimeModel> OpeningTimes { get; set; }
+        public DbSet<QueueModel> Queues { get; set; }
+        public DbSet<QueueEntryModel> QueueEntries { get; set; }
+        public DbSet<UserModel> Users { get; set; }
     }
 }

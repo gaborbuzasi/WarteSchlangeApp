@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace WarteSchlange.API.Models
 {
-    public class LogModel
+    public class OpeningTimeModel
     {
         [Key]
         public int Id { get; set; }
-        public DateTime OccuredTime { get; set; }
-        public string Description { get; set; }
+        public DateTime Open { get; set; }
+        public DateTime Close { get; set; }
+
     }
 }
