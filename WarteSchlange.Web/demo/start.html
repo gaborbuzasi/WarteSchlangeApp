@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <title>DigitalQ App</title>
@@ -24,13 +23,12 @@
                         console.log("Response: " + qItemID);
                         
                         // TODO check if ID is ok!
-                        window.location.replace("register.html?qItem="+qItemID);
+                        window.location.replace("demo/info.html?qItem="+qItemID);
                         
                     }
                 };
                 request.send();
             }
-
                           function getQueueInfo(url) {
                                 var request = new XMLHttpRequest();
                                 var postDestination = url;
@@ -53,20 +51,14 @@
                                         if (jsonData.requiresignup) {
                                             signintext = "Please, sign in!";
                                         } else {
-                                            signintext = "No sign up required!!!"
+                                            signintext = "No sign up required!"
                                         }
                                         document.getElementById("signintext").innerHTML = signintext;
-
-
                                     }
                                 }
                                 request.send();
-
                             }
                             getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/1");
-
-                        
-        
         </script>
     </head>
     <body>
@@ -113,7 +105,6 @@
                     </div>
                 </div>
             </div>
-          
 
             <a onclick="postQueueEntry()" id="button">Queue</a> 
 
@@ -123,8 +114,6 @@
                 Nothing!
                 </div>
             </div>
-        
-
         </div>
     </body>
 </html>

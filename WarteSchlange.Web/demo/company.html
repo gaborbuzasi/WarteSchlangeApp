@@ -1,0 +1,169 @@
+<html>
+    
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <title>Admin Area</title>
+        <link href="style.css" type="text/css" rel="stylesheet">
+      
+    </head>
+    
+    <body>  
+        <div id="main">
+            <div id="listbox">
+                <div id="listheading">Waiting Information</div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="person.png" id="listicon">
+                    </div>
+                    <div id="celltext">6 people before</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="average.jpg" id="listicon">
+                    </div>
+                    <div id="celltext">Average Time ~10 min</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="up.png" id="listicon">
+                    </div>
+                    <div id="celltext">Max Time Customer</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="down.png" id="listicon">
+                    </div>
+                    <div id="celltext">Min Time Customer</div>
+                </div>
+            </div>
+    
+            <div id="listbox">
+                <div id="listheading">Company's Name</div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="location.png" id="listicon">
+                    </div>
+                    <div id="celltext">Karlsruhe</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="web.png" id="listicon">
+                    </div>
+                    <div id="celltext">www.company.de</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="email.png" id="listicon">
+                    </div>
+                    <div id="celltext">com.pany@pany.de</div>
+                </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="phone.png" id="listicon">
+                    </div>
+                    <div id="celltext">+049 30300 243222</div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            // Get company queues 
+            // Foreach queue:
+            //      Get Queueentries      
+            //      -> Display 
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var companyID = url.searchParams.get("c");
+    
+    
+            function makeRequest(url, method, callback) {
+                var request = new XMLHttpRequest();
+                    request.open(method, url, true);
+                    request.setRequestHeader("Content-type", "text/plain");
+                    request.onreadystatechange = function () {
+                        if (request.readyState == 4 && request.status == 200) {
+                            // Request done an OK!
+                                callback(request.responseText);
+                        }
+                    }
+                    request.send();
+            }
+    
+    
+            function getCompanyQueues(responseText) {
+    
+                document.getElementById("main").childNodes.forEach( (node) => { if(node.className=="queueBox") {document.getElementById("main").removeChild(node)}})
+    
+                console.log(responseText)
+                json = JSON.parse(responseText);
+                json.forEach(queue => {
+                    console.log(queue);
+                    
+                    container = document.createElement("div")
+                    container.id = "listbox";
+                    container.classList.add("queueBox");
+                    
+                    var heading = document.createElement("div");
+                    heading.id = "listheading";
+                    heading.innerText = "Queue: " + queue.name; 
+                    //while (container.firstChild) {
+                    //    container.removeChild(container.firstChild);
+                    //}
+                    container.appendChild( heading );
+                    
+                    document.getElementById("main").insertBefore(container, document.getElementById("button"));
+                    
+    
+                    var request = new XMLHttpRequest();
+                    request.open("GET", "https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEntriesInQueue/"+queue.id, true);
+                    request.setRequestHeader("Content-type", "text/plain");
+                    request.onreadystatechange = function () {
+                        if (request.readyState == 4 && request.status == 200) {
+                            // Request done and OK!
+                            console.log("DEBUG: " + request.responseText);
+                            qItems = JSON.parse(request.responseText);
+                            console.log(queue + " " + qItems);
+                            
+                            qItems.forEach(qItem => {
+                                row = document.createElement("div");
+                                row.id = "row";
+                                row.innerText = qItem.identificationCode;
+                                
+                                imgDiv = document.createElement("div");
+                                imgDiv.id = "cellicon";
+                                
+                                img = document.createElement("img");
+                                img.src = "person.png";
+                                img.id = "listicon";
+    
+                                imgDiv.appendChild(img);
+                                row.appendChild(imgDiv); 
+    
+                                container.appendChild( row );
+                            });
+    
+                        }
+                    }
+                    request.send();
+                    
+                    var parent = document.getElementById("main");
+                    var b = document.getElementById("button");
+                    //document.getElementById("main").insertBefore(b, container);
+                    //document.appendChild(container);dasdetdfrdfgrtefr
+    
+                });
+            }
+    
+            function fetchData() {
+                makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getQueuesForCompany/"+companyID, "GET", getCompanyQueues);
+            }
+    
+    
+            fetchData();
+            setInterval(fetchData, 5000);
+        </script>
+    
+    </body>
+</html>
+    
+    
