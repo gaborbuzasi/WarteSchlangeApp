@@ -42,7 +42,7 @@
     <body>
         <div id="head">
 
-        <h1>You are in the queue</h1>
+        <h1>You are in the "<span id="namequeue"></span>"</h1>
             <span id="subtitle">Estimated Remaining Time:</span><br>
             
             <span id="time">(no estimate)</span><br>
@@ -83,8 +83,7 @@
             <div id="listheading">Rollercoaster Queue</div>
             <img id="landingPicture" src="achterbahn.jpg" />
             <div id="text">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                <span id="description"></span>
             </div>
             <div id="row">
                 <div id="cellicon">
@@ -166,11 +165,15 @@
                          
                             var jsonData = JSON.parse(request.response);
                             console.log(jsonData.name);
+                            document.getElementById("description").innerHTML = jsonData.description;   
+                            document.getElementById("namequeue").innerHTML = jsonData.name;   
+                        //    document.getElementById("").innerHTML = "";   
+                 
 
                         }
                     }
                     request.send();
-                     document.getElementById("openingtimes").innerHTML = "afsfafsdfssffsf";
+                    
                 }
                 getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/2");
            
