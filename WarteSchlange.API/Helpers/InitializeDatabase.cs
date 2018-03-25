@@ -25,11 +25,11 @@ namespace WarteSchlange.API.Helpers
             var company = new CompanyModel
             {
                 Category = "Doctor",
-                Email = "doctoe@atyouraddress.com",
+                Email = "doctors@zkmsurgery.de",
                 Location = "Karlsruhe, ZKM",
-                Name = "Dr. Jonas Krupki",
+                Name = "ZKM Surgery GmbH",
                 Phone = "+490123456789",
-                Website = "https://awesomedoctor.website",
+                Website = "https://zkmsurgery.de",
                 ImageId = image.Id
             };
 
@@ -51,7 +51,7 @@ namespace WarteSchlange.API.Helpers
                 Description = "Doctor's queue",
                 ImageId = image.Id,
                 Location = "Room 18/B",
-                Name = "GP's q",
+                Name = "Dr. Peter Artoli's queue",
                 MaxLength = 20,
                 OpeningTimeId = openingTime.Id,
                 RequireSignup = false
