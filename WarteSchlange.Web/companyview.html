@@ -126,6 +126,17 @@
                             row = document.createElement("div");
                             row.id = "row";
                             row.innerText = qItem.identificationCode;
+                            
+                            imgDiv = document.createElement("div");
+                            imgDiv.id = "cellicon";
+                            
+                            img = document.createElement("img");
+                            img.src = "person.png";
+                            img.id = "listicon";
+
+                            imgDiv.appendChild(img);
+                            row.appendChild(imgDiv);
+
                             container.appendChild( row );
                         });
 
