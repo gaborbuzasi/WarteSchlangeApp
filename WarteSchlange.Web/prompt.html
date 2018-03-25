@@ -7,7 +7,7 @@
         <script>
              function postQueueEntry() {
                 var request = new XMLHttpRequest();
-                var postDestination = "https://warteschlangeapi.azurewebsites.net/api/ManageQueue/addEntry/";
+                var postDestination = "https://warteschlangeapi.azurewebsites.net/api/ManageQueue/addEntry/2";
                 request.open("POST", postDestination, true);
                 request.setRequestHeader("Content-type", "application/json");
                 request.onreadystatechange = function () {
