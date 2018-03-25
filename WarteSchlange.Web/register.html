@@ -4,6 +4,9 @@
 
         <title>Registerd! - Please Wait</title>
         <link href="style.css" type="text/css" rel="stylesheet">
+        
+        <script src="https://github.com/davidshimjs/qrcodejs/blob/master/qrcode.min.js"></script>
+        
         <script>
             // Get QueueItemID
             var url_string = window.location.href;
@@ -28,7 +31,12 @@
             // Get estimated wait time
             var waitingTime = makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
             document.getElementById("time").innerHTML = parseInt(waitingTime) / 60;
+            
+            // Get people in front
 
+            // Get magic words
+
+            // create QR Code
            
         </script>
     </head>
@@ -38,7 +46,7 @@
 
         <h1>You are in the queue</h1>
             <span id="subtitle">Estimated Remaining Time:</span><br>
-            <span Id="time">(no estimate)</span><br>
+            <span id="time">(no estimate)</span><br>
             <span id="timeformat">minutes</span><br>
         </div>
 
