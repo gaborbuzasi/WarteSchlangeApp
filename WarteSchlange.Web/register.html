@@ -165,10 +165,7 @@
                             console.log(request.response);
                             var myObject = JSON.parse("my json string");
                             var jsonData = JSON.parse(myMessage);
-                            for (var i = 0; i < jsonData.queues.length; i++) { 
-                                var queue=jsonData.queues[i];
-                                console.log(queue.name);
-                            }
+                            console.log(jsonData.name);
 
                         }
                     }
