@@ -100,6 +100,9 @@
 
 
         function getCompanyQueues(responseText) {
+
+            document.getElementById("main").childNodes.forEach( (node) => { if(node.className=="queueBox") {document.getElementById("main").removeChild(node)}})
+
             console.log(responseText)
             json = JSON.parse(responseText);
             json.forEach(queue => {
@@ -107,13 +110,14 @@
                 
                 container = document.createElement("div")
                 container.id = "listbox";
+                container.classList.add("queueBox");
                 
                 var heading = document.createElement("div");
                 heading.id = "listheading";
                 heading.innerText = "Queue: " + queue.name; 
-                while (container.firstChild) {
-                    container.removeChild(container.firstChild);
-                }
+                //while (container.firstChild) {
+                //    container.removeChild(container.firstChild);
+                //}
                 container.appendChild( heading );
                 
                 document.getElementById("main").insertBefore(container, document.getElementById("button"));
