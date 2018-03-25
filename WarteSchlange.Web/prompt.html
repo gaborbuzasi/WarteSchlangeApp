@@ -45,17 +45,17 @@
                                         console.log(jsonData.name);
                                         document.getElementById("description").innerHTML = jsonData.description;
                                         document.getElementById("namequeue").innerHTML = jsonData.name;
-                               //         document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds);
-                                        document.getElementById("limit").innerHTML = jsonData.maxLength;   
-                                          document.getElementById("locationtxt").innerHTML = jsonData.location;
+                                        //         document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds);
+                                        document.getElementById("limit").innerHTML = jsonData.maxLength;
+                                        document.getElementById("locationtxt").innerHTML = jsonData.location;
                                         //    document.getElementById("").innerHTML = "";   
                                         var signintext;
-                                        if(jsonData.requiresignup){
-                                            signintext ="Please, sign in!";
+                                        if (jsonData.requiresignup) {
+                                            signintext = "Please, sign in!";
                                         } else {
                                             signintext = "No sign up required!!!"
                                         }
-                                        document.getElementById("signintext").innerHTML = signintext;   
+                                        document.getElementById("signintext").innerHTML = signintext;
 
 
                                     }
