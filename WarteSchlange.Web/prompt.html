@@ -6,9 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
              function postQueueEntry() {
-                alert("This has been called!");
+                
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var q = url.searchParams.get("q");
+                if(q==null || q=="") return;
+
                 var request = new XMLHttpRequest();
-                var postDestination = "https://warteschlangeapi.azurewebsites.net/api/ManageQueue/addEntry/2";
+                var postDestination = "https://warteschlangeapi.azurewebsites.net/api/ManageQueue/addEntry/"+q;
                 request.open("POST", postDestination, true);
                 request.setRequestHeader("Content-type", "text/plain");
                 request.onreadystatechange = function () {
@@ -17,6 +22,11 @@
                         var qItemID = request.responseText;
                         console.log("Connect is established!");
                         console.log("Response: " + qItemID);
+                        
+                        // TODO check if ID is ok
+
+                        window.open("register.html?qItem="+qItemID, "_blank").focus();
+                        
                     }
                 };
                 request.send();
