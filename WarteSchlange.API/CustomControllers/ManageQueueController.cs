@@ -25,14 +25,13 @@ namespace WarteSchlange.API.CustomControllers
         }
         
         [HttpDelete("resolveEntry/{entryId}")]
-        public async Task<IActionResult> ResolveEntry([FromRoute] int entryId)
+        public async Task<IActionResult> ResolveEntry(int entryId)
         {
-            IActionResult result = null;
             QueueEntryModel entryToDelete =  await _context.QueueEntries.FindAsync(entryId);
 
             if(entryToDelete == null)
             {
-                result = BadRequest("Entry not found");
+                return BadRequest("Entry not found");
             }
             else
             {
@@ -40,18 +39,41 @@ namespace WarteSchlange.API.CustomControllers
                 {
                     _context.QueueEntries.Remove(entryToDelete);
                     await _context.SaveChangesAsync();
-                    result = Ok(); // TODO: Check/Update ETA?
+                    return Ok(); // TODO: Check/Update ETA?
                 }
                 else
                 {
-                    result = BadRequest("Entry is not ready yet");
+                    return BadRequest("Entry is not ready yet");
                 }
             }
-
-            return result;
         }
 
-        [Route("deleteEntry")]
+        [HttpDelete("resolveEntryByName/{entryName}/{queueId}")]
+        public async Task<IActionResult> ResolveEntryByName(string entryName, int queueId)
+        {
+            QueueEntryModel entryToDelete = _context.QueueEntries.Where(entry => entry.IdentificationCode == entryName
+                                                                              && entry.QueueId == queueId).Single();
+
+            if(entryToDelete == null)
+            {
+                return BadRequest("Entry not found");
+            }
+            else
+            {
+                if(queueHelper.EntryIsAtTheReady(entryToDelete))
+                {
+                    _context.QueueEntries.Remove(entryToDelete);
+                    await _context.SaveChangesAsync();
+                    return Ok(); // TODO: Check/Update ETA?
+                }
+                else
+                {
+                    return BadRequest("Entry is not ready yet");
+                }
+            }
+        }
+
+        [Route("deleteEntry/{entryId}")]
         [HttpDelete] 
         public async Task<IActionResult> DeleteEntry([FromRoute] int entryId)
         {

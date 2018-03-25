@@ -15,6 +15,7 @@ namespace WarteSchlange.API.Models
         public int QueueId { get; set; }
         public int? UserId { get; set; }
         public DateTime EntryTime { get; set; }
+        public DateTime? WasReadyAt { get; set; }
         public int Priority { get; set; }
         public string IdentificationCode { get; set; }
 
