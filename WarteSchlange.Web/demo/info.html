@@ -52,48 +52,51 @@
             <div id="listbox">
                 <div id="listheading">Waiting Information</div>
                 <div id="row">
-                    <div id="cellicon"><img src="person.png" id="listicon"></div>
-                    <div id="celltext2">? people in front of you</div>
+                    <div id="cellicon"><img src="../person.png" id="listicon"></div>
+                    <div id="celltext2">0 people in front of you</div> 
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="average.jpg" id="listicon">
+                        <img src="../average.jpg" id="listicon">
                     </div>
-                    <div class="celltext">Average Waiting Time ~? min</div>
+                    <div class="celltext">Average Waiting Time: 10 min</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="up.png" id="listicon">
+                        <img src="../up.png" id="listicon">
                     </div>
-                    <div class="celltext">Max Time Customer</div>
+                    <div class="celltext">Max Time Customer: 30 min</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="down.png" id="listicon">
+                        <img src="../down.png" id="listicon">
                     </div>
-                    <div class="celltext">Min Time Customer</div>
+                    <div class="celltext">Min Time Customer: 5 min</div>
                 </div>
+                <!--
                 <div id="row" style="height: 400px;">
                     <div id="qrcode" style="width: 300px; height: 300px; display: block; margin-left: auto; margin-right: auto;"></div>
                 </div>
+                -->
             </div>
     <div id="listbox">
     
-        <div id="listheading">Rollercoaster Queue</div>
-        <img id="landingPicture" src="achterbahn.jpg" />
+        <div id="listheading">Doctor Queue</div>
+        <img id="landingPicture" src="doctor.jpg" />
         <div id="text">
             <span id="description"></span>
         </div>
         <div id="row">
             <div id="cellicon">
-                <img src="time.png" id="listicon">
+                <img src="../time.png" id="listicon">
             </div>
             <div class="celltext">Mo. -Fr. 08:00 - 19:00
-                <br>Sa. 09:00-13:00</div>
+                <br>Sa. 09:00-13:00
+            </div>
         </div>
         <div id="row">
             <div id="cellicon">
-                <img src="location.png" id="listicon">
+                <img src="../location.png" id="listicon">
             </div>
             <div class="celltext">
                 <span id="locationtxt"></span>
@@ -101,13 +104,13 @@
         </div>
         <div id="row">
             <div id="cellicon">
-                <img src="starttime.png" id="listicon">
+                <img src="../starttime.png" id="listicon">
             </div>
             <div class="celltext">You entered at 08:43:21</div>
         </div>
         <div id="row">
             <div id="cellicon">
-                <img src="signin.png" id="listicon">
+                <img src="../signin.png" id="listicon">
             </div>
             <div class="celltext">
                 <span id="signintext"></span>
@@ -115,7 +118,7 @@
         </div>
         <div id="row">
             <div id="cellicon">
-                <img src="limit.png" id="listicon">
+                <img src="../limit.png" id="listicon">
             </div>
             <div class="celltext">
                 <span id="limit"></span>
@@ -123,28 +126,28 @@
         </div>
     </div>
             <div id="listbox">
-                <div id="listheading">Company's Name</div>
+                <div id="listheading">ZKM Surgery GmbH</div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="location.png" id="listicon">
+                        <img src="../location.png" id="listicon">
                     </div>
-                    <div class="celltext">Karlsruhe</div>
+                    <div class="celltext">Karlsruhe, ZKM</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="web.png" id="listicon">
+                        <img src="../web.png" id="listicon">
                     </div>
-                    <div class="celltext">www.company.de</div>
+                    <div class="celltext">www.zkmsurgery.de</div>
                 </div>
                     <div id="row">
                         <div id="cellicon">
-                            <img src="email.png" id="listicon">
+                            <img src="../email.png" id="listicon">
                         </div>
-                        <div class="celltext">com.pany@example.com</div>
+                        <div class="celltext">doctors@zkmsurgery.de</div>
                     </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="phone.png" id="listicon">
+                        <img src="../phone.png" id="listicon">
                     </div>
                     <div class="celltext">+049 30300 243222</div>
                 </div>
@@ -173,7 +176,7 @@
                     }
                     request.send();
                 }
-            makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
+            makeTimeRequest("https://warteschlangeapiv2.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
 
  
 
@@ -212,7 +215,7 @@
         request.send();
 
     }
-    getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/1");
+    getQueueInfo("https://warteschlangeapiv2.azurewebsites.net/api/queue/1");
 
      
               function getPicure(url) {
@@ -228,7 +231,7 @@
                     request.send();
                 }
 
-                makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/images/" + imageID);
+                makeTimeRequest("https://warteschlangeapiv2.azurewebsites.net/api/images/" + imageID);
             
 
             new QRCode(document.getElementById("qrcode"), "google.de/"+qItemID);

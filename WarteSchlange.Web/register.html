@@ -174,7 +174,7 @@
                     }
                     request.send();
                 }
-            makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
+            makeTimeRequest("https://warteschlangeapiv2.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
 
  
 
@@ -213,7 +213,7 @@
         request.send();
 
     }
-    getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/1");
+    getQueueInfo("https://warteschlangeapiv2.azurewebsites.net/api/queue/1");
 
      
               function getPicure(url) {
@@ -229,7 +229,7 @@
                     request.send();
                 }
 
-                makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/images/" + imageID);
+                makeTimeRequest("https://warteschlangeapiv2.azurewebsites.net/api/images/" + imageID);
             
 
             new QRCode(document.getElementById("qrcode"), "google.de/"+qItemID);

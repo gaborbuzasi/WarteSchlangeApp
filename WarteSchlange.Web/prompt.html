@@ -13,7 +13,7 @@
                 if(q==null || q=="") return;
 
                 var request = new XMLHttpRequest();
-                var postDestination = "https://warteschlangeapi.azurewebsites.net/api/ManageQueue/addEntry/"+q;
+                var postDestination = "https://warteschlangeapiv2.azurewebsites.net/api/ManageQueue/addEntry/"+q;
                 request.open("POST", postDestination, true);
                 request.setRequestHeader("Content-type", "text/plain");
                 request.onreadystatechange = function () {
@@ -63,7 +63,7 @@
                                 request.send();
 
                             }
-                            getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/1");
+                            getQueueInfo("https://warteschlangeapiv2.azurewebsites.net/api/queue/1");
 
                         
         

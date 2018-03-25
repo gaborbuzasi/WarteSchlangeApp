@@ -12,7 +12,7 @@
                 if(q==null || q=="") return;
 
                 var request = new XMLHttpRequest();
-                var postDestination = "https://warteschlangeapi.azurewebsites.net/api/ManageQueue/addEntry/"+q;
+                var postDestination = "https://warteschlangeapiv2.azurewebsites.net/api/ManageQueue/addEntry/"+q;
                 request.open("POST", postDestination, true);
                 request.setRequestHeader("Content-type", "text/plain");
                 request.onreadystatechange = function () {
@@ -29,36 +29,36 @@
                 };
                 request.send();
             }
-                          function getQueueInfo(url) {
-                                var request = new XMLHttpRequest();
-                                var postDestination = url;
-                                request.open("GET", postDestination, true);
-                                request.setRequestHeader("Content-type", "text/plain");
-                                request.onreadystatechange = function () {
-                                    if (request.readyState == 4 && request.status == 200) {
-                                        // Request done an OK!
-                                        console.log(request.response);
+            function getQueueInfo(url) {
+                var request = new XMLHttpRequest();
+                var postDestination = url;
+                request.open("GET", postDestination, true);
+                request.setRequestHeader("Content-type", "text/plain");
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        // Request done an OK!
+                        console.log(request.response);
 
-                                        var jsonData = JSON.parse(request.response);
-                                        console.log(jsonData.name);
-                                        document.getElementById("description").innerHTML = jsonData.description;
-                                        document.getElementById("namequeue").innerHTML = jsonData.name;
-                                        //         document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds);
-                                        document.getElementById("limit").innerHTML = jsonData.maxLength;
-                                        document.getElementById("locationtxt").innerHTML = jsonData.location;
-                                        //    document.getElementById("").innerHTML = "";   
-                                        var signintext;
-                                        if (jsonData.requiresignup) {
-                                            signintext = "Please, sign in!";
-                                        } else {
-                                            signintext = "No sign up required!"
-                                        }
-                                        document.getElementById("signintext").innerHTML = signintext;
-                                    }
-                                }
-                                request.send();
-                            }
-                            getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/1");
+                        var jsonData = JSON.parse(request.response);
+                        console.log(jsonData.name);
+                        document.getElementById("description").innerHTML = jsonData.description;
+                        document.getElementById("namequeue").innerHTML = jsonData.name;
+                        //         document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds);
+                        document.getElementById("limit").innerHTML = "Maximum queue length: " + jsonData.maxLength;
+                        document.getElementById("locationtxt").innerHTML = jsonData.location;
+                        //    document.getElementById("").innerHTML = "";   
+                        var signintext;
+                        if (jsonData.requiresignup) {
+                            signintext = "Please, sign in!";
+                        } else {
+                            signintext = "No sign up required!"
+                        }
+                        document.getElementById("signintext").innerHTML = signintext;
+                    }
+                }
+                request.send();
+            }
+            getQueueInfo("https://warteschlangeapiv2.azurewebsites.net/api/queue/1");
         </script>
     </head>
     <body>
@@ -67,38 +67,32 @@
             <h2>Do you want to queue?</h2>
             <div id="listbox">
           
-            <div id="listheading">Rollercoaster Queue</div>
-                <img id="landingPicture" src="achterbahn.jpg" />
+            <div id="listheading">Doctors Queue</div>
+                <img id="landingPicture" src="doctor.jpg" />
             <div id="text">
                <span id="description"></span> </div>
             <div id="row">
                 <div id="cellicon">
-                    <img src="time.png" id="listicon">
+                    <img src="../time.png" id="listicon">
                 </div>
                 <div class="celltext">Mo. -Fr. 08:00 - 19:00
                     <br>Sa. 09:00-13:00</div>
             </div>
-                    <div id="row">
-                        <div id="cellicon">
-                            <img src="location.png" id="listicon">
-                        </div>
-                        <div class="celltext"><span id="locationtxt"></span></div>
-                    </div>
             <div id="row">
                 <div id="cellicon">
-                    <img src="starttime.png" id="listicon">
+                    <img src="../location.png" id="listicon">
                 </div>
-                <div class="celltext">You entered at 08:43:21</div>
+                <div class="celltext"><span id="locationtxt"></span></div>
             </div>
             <div id="row">
                 <div id="cellicon">
-                    <img src="signin.png" id="listicon">
+                    <img src="../signin.png" id="listicon">
                 </div>
                 <div class="celltext"><span id="signintext"></span></div>
             </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="limit.png" id="listicon">
+                        <img src="../limit.png" id="listicon">
                     </div>
                     <div class="celltext">
                         <span id="limit"></span>
@@ -106,7 +100,7 @@
                 </div>
             </div>
 
-            <a onclick="postQueueEntry()" id="button">Queue</a> 
+            <a onclick="postQueueEntry()" id="button">Queue me up!</a> 
 
             <div id="listbox">
                 <div id="listheading">Required to take with</div>
