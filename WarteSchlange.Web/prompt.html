@@ -12,9 +12,11 @@
                 request.open("POST", postDestination, true);
                 request.setRequestHeader("Content-type", "text/plain");
                 request.onreadystatechange = function () {
-                    if (request.readState === 2 && request.status == 200) {
-                        var json = JSON.parse(request.responseText);
+                    if (request.status == 200) {
+                        // OK Request
+                        var qItemID = request.responseText;
                         console.log("Connect is established!");
+                        console.log("Response: " + qItemID);
                     }
                 };
                 request.send();
