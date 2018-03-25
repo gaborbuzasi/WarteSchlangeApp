@@ -30,7 +30,7 @@
                 }
 
             
-            // Get people in front 
+            // Get people in front
 
             // Get magic words
 
@@ -41,7 +41,6 @@
     
     <body>
         <div id="head">
-
         <h1>You are in the "<span id="namequeue"></span>"</h1>
             <span id="subtitle">Estimated Remaining Time:</span><br>
             
@@ -165,7 +164,7 @@ function getQueueInfo(url) {
                          
                             var jsonData = JSON.parse(request.response);
                             console.log(jsonData.name);
-                            document.getElementById("description").innerHTML = jsonData.description;   
+                            document.getElementById("description").innerHTML = jsonData.description;
                             document.getElementById("namequeue").innerHTML = jsonData.name;   
                             document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds)/6;
                         //    document.getElementById("").innerHTML = "";   

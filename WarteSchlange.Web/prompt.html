@@ -45,7 +45,7 @@
                                         console.log(jsonData.name);
                                         document.getElementById("description").innerHTML = jsonData.description;
                                         document.getElementById("namequeue").innerHTML = jsonData.name;
-                                        document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds) / 60;
+                                        document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds);
                                         document.getElementById("limit").innerHTML = jsonData.maxLength;   
                                           document.getElementById("locationtxt").innerHTML = jsonData.location;
                                         //    document.getElementById("").innerHTML = "";   
@@ -71,7 +71,7 @@
     </head>
     <body>
         <div id="main">
-            <h1>Welcome at "<span id="namequee"></span></h1>
+            <h1>Welcome at "<span id="namequeue"></span>"</h1>
             <h2>Do you want to queue?</h2>
             <div id="listbox">
           
@@ -104,6 +104,14 @@
                 </div>
                 <div class="celltext"><span id="signintext"></span></div>
             </div>
+                <div id="row">
+                    <div id="cellicon">
+                        <img src="limit.png" id="listicon">
+                    </div>
+                    <div class="celltext">
+                        <span id="limit"></span>
+                    </div>
+                </div>
             </div>
           
 
