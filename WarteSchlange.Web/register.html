@@ -18,7 +18,7 @@
             function makeRequest(url) {
                 var request = new XMLHttpRequest();
                     var postDestination = url;
-                    request.open("GET", postDestination, false);
+                    request.open("GET", postDestination, true);
                     request.setRequestHeader("Content-type", "text/plain");
                     request.onreadystatechange = function () {
                         if (request.readyState == 4 && request.status == 200) {
@@ -140,8 +140,21 @@
         <script>
 
             // Get estimated wait time
-            var waitingTime = makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
-            document.getElementById("time").innerHTML = parseInt(waitingTime) / 60;
+            function makeTimeRequest(url) {
+                var request = new XMLHttpRequest();
+                    var postDestination = url;
+                    request.open("GET", postDestination, true);
+                    request.setRequestHeader("Content-type", "text/plain");
+                    request.onreadystatechange = function () {
+                        if (request.readyState == 4 && request.status == 200) {
+                            // Request done an OK!
+                            document.getElementById("time").innerHTML = parseInt(request.responseText) / 60;
+                        }
+                    }
+                    request.send();
+                }
+            makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
+           
             console.log(waitingTime);
 
             new QRCode(document.getElementById("qrcode"), "google.de/"+qItemID);
