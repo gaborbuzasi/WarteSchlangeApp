@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using WarteSchlange.API.Helpers;
 using WarteSchlange.API.Models;
 
 namespace WarteSchlange.API
@@ -26,6 +27,7 @@ namespace WarteSchlange.API
                 {
                     var context = services.GetRequiredService<MainContext>();
                     context.Database.EnsureCreated();
+                    InitializeDatabase.Initialize(context);
                 }
                 catch (Exception)
                 {

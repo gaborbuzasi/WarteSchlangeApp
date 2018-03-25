@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WarteSchlange.API.Helpers;
 using WarteSchlange.API.Models;
 using WarteSchlange.API.ViewModels;
 
@@ -37,7 +38,7 @@ namespace WarteSchlange.API.Controllers
                 QueueId = queueIdModel.QueueId,
                 EntryTime = DateTime.Now,
                 Priority = 0,
-                IdentificationCode = "Yellow Bear" //TODO: Change
+                IdentificationCode = QueueHelpers.GenerateQueueIdentification(queueIdModel.QueueId, _context)
             };
             
             _context.QueueEntries.Add(queueEntry);
@@ -60,8 +61,6 @@ namespace WarteSchlange.API.Controllers
                 HasError = hasError,
                 ErrorMessage = errorMessage
             };
-
-            // IdentificationCode = <unique name>
 
             return result;
         }
