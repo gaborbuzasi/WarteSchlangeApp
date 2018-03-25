@@ -165,7 +165,7 @@ function getQueueInfo(url) {
                          
                             var jsonData = JSON.parse(request.response);
                             console.log(jsonData.name);
-                            document.getElementById("description").innerHTML = jsonData.description;   
+                            document.getElementById("description").innerHTML = jsonData.description;
                             document.getElementById("namequeue").innerHTML = jsonData.name;   
                             document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds)/6;
                         //    document.getElementById("").innerHTML = "";   
