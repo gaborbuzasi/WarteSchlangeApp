@@ -8,28 +8,28 @@
     <body>  
         <div id="main">    
             <div id="listbox">
-                <div id="listheading">Company's Name</div>
+                <div id="listheading">ZKM Surgery GmbH</div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="location.png" id="listicon">
+                        <img src="../location.png" id="listicon">
                     </div>
-                    <div id="celltext">Karlsruhe</div>
+                    <div id="celltext">Karlsruhe, ZKM</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="web.png" id="listicon">
+                        <img src="../web.png" id="listicon">
                     </div>
-                    <div id="celltext">www.company.de</div>
+                    <div id="celltext">www.zkmsurgery.de</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="email.png" id="listicon">
+                        <img src="../email.png" id="listicon">
                     </div>
-                    <div id="celltext">com.pany@pany.de</div>
+                    <div id="celltext">doctors@zkmsurgery.de</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
-                        <img src="phone.png" id="listicon">
+                        <img src="../phone.png" id="listicon">
                     </div>
                     <div id="celltext">+049 30300 243222</div>
                 </div>
@@ -92,7 +92,7 @@
                             // Request done and OK!
                             console.log("DEBUG: " + request.responseText);
                             qItems = JSON.parse(request.responseText);
-                            console.log(queue + " " + qItems);
+                            console.log(queue + " " + qItems);  
                             
                             qItems.forEach(qItem => {
                                 row = document.createElement("div");
