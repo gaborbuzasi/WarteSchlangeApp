@@ -12,8 +12,8 @@
                 request.open("POST", postDestination, true);
                 request.setRequestHeader("Content-type", "text/plain");
                 request.onreadystatechange = function () {
-                    if (request.status == 200) {
-                        // OK Request test
+                    if (request.readyState == 4 && request.status == 200) {
+                        // Request done an OK!
                         var qItemID = request.responseText;
                         console.log("Connect is established!");
                         console.log("Response: " + qItemID);
