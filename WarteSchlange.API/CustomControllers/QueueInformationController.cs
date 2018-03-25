@@ -126,7 +126,7 @@ namespace WarteSchlange.API.CustomControllers
         }
 
         [HttpGet("getEntriesInQueue/{queueId}")]
-        public IEnumerable<QueueEntryModel> GetEntriesInQueue(int queueId)
+        public async Task<IEnumerable<QueueEntryModel>> GetEntriesInQueue(int queueId)
         {
             queueHelper.RemoveTimedoutQueueEntries(queueId);
             queueHelper.UpdateAtTheReady(queueId);
