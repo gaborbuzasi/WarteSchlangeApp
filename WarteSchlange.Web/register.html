@@ -18,7 +18,7 @@
             function makeRequest(url) {
                 var request = new XMLHttpRequest();
                     var postDestination = url;
-                    request.open("POST", postDestination, false);
+                    request.open("GET", postDestination, false);
                     request.setRequestHeader("Content-type", "text/plain");
                     request.onreadystatechange = function () {
                         if (request.readyState == 4 && request.status == 200) {
