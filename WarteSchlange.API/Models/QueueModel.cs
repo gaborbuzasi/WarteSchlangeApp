@@ -20,6 +20,7 @@ namespace WarteSchlange.API.Models
         public int ImageId { get; set; }
         public int AverageWaitTimeSeconds { get; set; }
         public int AtTheReadyCount { get; set; }
+        public int? AtTheReadyTimeout { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
 
