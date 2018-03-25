@@ -43,12 +43,8 @@
 
         <h1>You are in the queue</h1>
             <span id="subtitle">Estimated Remaining Time:</span><br>
+            
             <span id="time">(no estimate)</span><br>
-            <script>
-            // Get estimated wait time
-            var waitingTime = makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
-            document.getElementById("time").innerHTML = parseInt(waitingTime) / 60;
-            </script>
 
             <span id="timeformat">minutes</span><br>
         </div>
@@ -79,10 +75,7 @@
                     <div id="celltext">Min Time Customer</div>
                 </div>
                 <div id="row">
-                    <div id="qrcode"></div>
-                    <script type="text/javascript">
-                    new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
-                    </script>
+                    <div id="qrcode" style="width: 100%; height: 100%;"></div>
                 </div>
             </div>
             <div id="listbox">
@@ -140,6 +133,19 @@
 
         </div>
        
+
+
+
+        <script>
+
+            // Get estimated wait time
+            var waitingTime = makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
+            document.getElementById("time").innerHTML = parseInt(waitingTime) / 60;
+            console.log(waitingTime);
+
+            new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
+        </script>
+
     </body>
 
 </html>
