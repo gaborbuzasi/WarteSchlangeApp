@@ -126,10 +126,10 @@ namespace WarteSchlange.API.CustomControllers
         }
 
         [HttpGet("getEntriesInQueue/{queueId}")]
-        public IEnumerable<QueueEntryModel> GetEntriesInQueue(int queueId)
+        public async Task<IEnumerable<QueueEntryModel>> GetEntriesInQueue(int queueId)
         {
-            queueHelper.RemoveTimedoutQueueEntries(queueId);
-            queueHelper.UpdateAtTheReady(queueId);
+            await queueHelper.RemoveTimedoutQueueEntries(queueId);
+            await queueHelper.UpdateAtTheReady(queueId);
             var entries = _context.QueueEntries.Where(entry => entry.QueueId == queueId).OrderBy( item => item.EntryTime );
             return entries;
         }

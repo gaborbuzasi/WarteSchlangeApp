@@ -42,7 +42,7 @@ namespace WarteSchlange.API.Helpers
             return _context.Queues.Where(queue => queue.Id == queueId).Count() >= 1;
         }
 
-        public async void UpdateAtTheReady(int queueId)
+        public async Task UpdateAtTheReady(int queueId)
         {
             IEnumerable<QueueEntryModel> queueEntries = _context.QueueEntries.Where(entry => entry.QueueId == queueId).OrderBy(entry => entry.EntryTime);
 
@@ -61,7 +61,7 @@ namespace WarteSchlange.API.Helpers
             }
         }
 
-        public async void RemoveTimedoutQueueEntries(int queueId)
+        public async Task RemoveTimedoutQueueEntries(int queueId)
         {
             IEnumerable<QueueEntryModel> queueEntries = _context.QueueEntries.Where(entry => entry.QueueId == queueId
                                                                                  && entry.WasReadyAt != null);

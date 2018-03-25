@@ -89,8 +89,8 @@ namespace WarteSchlange.API.CustomControllers
                 int queueId = entryToDelete.QueueId;
                 _context.QueueEntries.Remove(entryToDelete);
                 await _context.SaveChangesAsync();
-                queueHelper.RemoveTimedoutQueueEntries(queueId);
-                queueHelper.UpdateAtTheReady(queueId);
+                await queueHelper.RemoveTimedoutQueueEntries(queueId);
+                await queueHelper.UpdateAtTheReady(queueId);
                 return Ok(); // TODO: Check/Update ETA
             }
         }
