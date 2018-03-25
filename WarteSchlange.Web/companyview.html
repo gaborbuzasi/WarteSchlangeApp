@@ -138,7 +138,8 @@
                         console.log(queue + " " + qItems);
                         
                         qItems.forEach(qItem => {
-                            row = document.createElement("row");
+                            row = document.createElement("div");
+                            row.id = "row";
                             row.innerText = qItem.identificationCode;
                             container.appendChild( row );
                         });
