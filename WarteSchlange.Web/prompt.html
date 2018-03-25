@@ -47,6 +47,7 @@
                                         document.getElementById("namequeue").innerHTML = jsonData.name;
                                         document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds) / 60;
                                         document.getElementById("limit").innerHTML = jsonData.maxLength;   
+                                          document.getElementById("locationtxt").innerHTML = jsonData.location;
                                         //    document.getElementById("").innerHTML = "";   
                                         var signintext;
                                         if(jsonData.requiresignup){
@@ -87,10 +88,9 @@
             </div>
                     <div id="row">
                         <div id="cellicon">
-                            <img src="time.png" id="listicon">
+                            <img src="location.png" id="listicon">
                         </div>
-                        <div class="celltext">Mo. -Fr. 08:00 - 19:00
-                            <br>Sa. 09:00-13:00</div>
+                        <div class="celltext"><span id="locationtxt"></span></div>
                     </div>
             <div id="row">
                 <div id="cellicon">
