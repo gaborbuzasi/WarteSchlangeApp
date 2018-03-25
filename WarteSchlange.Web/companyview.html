@@ -124,7 +124,8 @@
             json.forEach(queue => {
                 console.log(queue);
                 
-                container = document.createElement("listbox")
+                container = document.createElement("div")
+                container.id = "listbox";
                 container.innerText = queue.name;
                 document.getElementById("main").insertBefore(container, document.getElementById("button"));
 
