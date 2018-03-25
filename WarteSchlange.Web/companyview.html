@@ -2,15 +2,14 @@
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-
-    <title>Registerd! - Please Wait</title>
+    <title>Admin Area</title>
     <link href="style.css" type="text/css" rel="stylesheet">
   
 </head>
 
-<body onload="return askForCorrectness()">
-  
 
+
+<body>  
     <div id="main">
         <div id="listbox">
             <div id="listheading">Waiting Information</div>
@@ -39,8 +38,10 @@
                 <div id="celltext">Min Time Customer</div>
             </div>
         </div>
+
+
         <div id="listbox">
-            <div id="listheading">Rollcoaster Queue</div>
+            <div id="listheading">Current Queue</div>
             <img id="landingPicture" src="achterbahn.jpg" />
             <div id="text">
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
@@ -94,6 +95,38 @@
     <a href="cancel.html" onclick="" id="button">Leave Queue</a>
 
     </div>
+
+
+
+    <script>
+        // Get company queues 
+        // Foreach queue:
+        //      Get Queueentries 
+        //      -> Display
+        var companyID = 1;
+
+        function makeRequest(url, method, callback) {
+            var request = new XMLHttpRequest();
+                request.open(method, url, true);
+                request.setRequestHeader("Content-type", "text/plain");
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        // Request done an OK!
+                            callback(request.responseText);
+                    }
+                }
+                request.send();
+        }
+
+
+        function getCompanyQueues(responseText) {
+            console.log(responseText)
+        }
+
+
+        makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getQueuesForCompany/"+companyID, "GET", getCompanyQueues);
+
+    </script>
 
 </body>
 
