@@ -78,27 +78,51 @@
                     <div id="qrcode" style="width: 300px; height: 300px; display: block; margin-left: auto; margin-right: auto;"></div>
                 </div>
             </div>
-            <div id="listbox">
-            <div id="listheading">Rollercoaster Queue</div>
-            <img id="landingPicture" src="achterbahn.jpg" />
-            <div id="text">
-                <span id="description"></span>
+    <div id="listbox">
+    
+        <div id="listheading">Rollercoaster Queue</div>
+        <img id="landingPicture" src="achterbahn.jpg" />
+        <div id="text">
+            <span id="description"></span>
+        </div>
+        <div id="row">
+            <div id="cellicon">
+                <img src="time.png" id="listicon">
             </div>
-            <div id="row">
-                <div id="cellicon">
-                    <img src="time.png" id="listicon">
-                </div>
-                <div class="celltext" id="openingtimes">
+            <div class="celltext">Mo. -Fr. 08:00 - 19:00
+                <br>Sa. 09:00-13:00</div>
+        </div>
+        <div id="row">
+            <div id="cellicon">
+                <img src="location.png" id="listicon">
             </div>
-            <div id="row">
-                <div id="cellicon">
-                    <img src="starttime.png" id="listicon">
-                </div>
-                <div class="celltext">You entered at 08:43:21</div>
+            <div class="celltext">
+                <span id="locationtxt"></span>
             </div>
+        </div>
+        <div id="row">
+            <div id="cellicon">
+                <img src="starttime.png" id="listicon">
             </div>
+            <div class="celltext">You entered at 08:43:21</div>
+        </div>
+        <div id="row">
+            <div id="cellicon">
+                <img src="signin.png" id="listicon">
             </div>
-
+            <div class="celltext">
+                <span id="signintext"></span>
+            </div>
+        </div>
+        <div id="row">
+            <div id="cellicon">
+                <img src="limit.png" id="listicon">
+            </div>
+            <div class="celltext">
+                <span id="limit"></span>
+            </div>
+        </div>
+    </div>
             <div id="listbox">
                 <div id="listheading">Company's Name</div>
                 <div id="row">
@@ -152,30 +176,41 @@
                 }
             makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
 
-function getQueueInfo(url) {
-                var request = new XMLHttpRequest();
-                    var postDestination = url;
-                    request.open("GET", postDestination, true);
-                    request.setRequestHeader("Content-type", "text/plain");
-                    request.onreadystatechange = function () {
-                        if (request.readyState == 4 && request.status == 200) {
-                            // Request done an OK!
-                            console.log(request.response);
-                         
-                            var jsonData = JSON.parse(request.response);
-                            console.log(jsonData.name);
-                            document.getElementById("description").innerHTML = jsonData.description;
-                            document.getElementById("namequeue").innerHTML = jsonData.name;   
-                            document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds)/6;
-                        //    document.getElementById("").innerHTML = "";   
-                 
+    function getQueueInfo(url) {
+        var request = new XMLHttpRequest();
+        var postDestination = url;
+        request.open("GET", postDestination, true);
+        request.setRequestHeader("Content-type", "text/plain");
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                // Request done an OK!
+                console.log(request.response);
 
-                        }
-                    }
-                    request.send();
-                    
+                var jsonData = JSON.parse(request.response);
+                console.log(jsonData.name);
+                document.getElementById("description").innerHTML = jsonData.description;
+                document.getElementById("namequeue").innerHTML = jsonData.name;
+                //         document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds);
+                document.getElementById("limit").innerHTML = jsonData.maxLength;
+                document.getElementById("locationtxt").innerHTML = jsonData.location;
+                //    document.getElementById("").innerHTML = "";   
+                var signintext;
+                if (jsonData.requiresignup) {
+                    signintext = "Please, sign in!";
+                } else {
+                    signintext = "No sign up required!!!"
                 }
-                getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/2");
+                document.getElementById("signintext").innerHTML = signintext;
+
+
+            }
+        }
+        request.send();
+
+    }
+    getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/1");
+
+     
            
             
 
