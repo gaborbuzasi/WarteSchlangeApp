@@ -163,7 +163,10 @@
                         if (request.readyState == 4 && request.status == 200) {
                             // Request done an OK!
                             console.log(request.response);
-                           
+                         
+                            var jsonData = JSON.parse(request.response);
+                            console.log(jsonData.name);
+
                         }
                     }
                     request.send();
