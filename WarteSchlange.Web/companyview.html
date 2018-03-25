@@ -147,7 +147,9 @@
                 }
                 request.send();
                 
-                document.appendChild(container);
+                var b = document.getElementById("button");
+                document.body.insertBefore(b, container);
+                //document.appendChild(container);
 
             });
         }
