@@ -23,27 +23,6 @@ namespace WarteSchlange.API.CustomControllers
             queueHelper = new QueueHelper(context);
         }
 
-        // DEPRACATED (TODO: REMOVE THIS)
-        [HttpGet("positionInformation/{queueItemId}")]
-        public QueueInformationModel QueueInformation(int queueItemId)
-        {
-            try
-            {
-                QueueEntryModel myEntry = _context.QueueEntries.Where(item => item.Id == queueItemId).Single();
-
-                // Get all older entries in same queue
-                // TODO: Priority
-                QueueModel queue = _context.Queues.Where(item => item.Id == myEntry.QueueId).Single();
-                int olderItems = _context.QueueEntries.Where(item => item.EntryTime < myEntry.EntryTime && item.QueueId == myEntry.QueueId).Count();
-                int averageWaitTime = queue.AverageWaitTimeSeconds;
-                return new QueueInformationModel(olderItems * averageWaitTime, olderItems + 1, olderItems < queue.AtTheReadyCount);
-            }
-            catch (Exception)
-            {
-                throw; //TODO: some error handling
-            }
-        }
-
         [Route("getEstimatedWaitingTime/{queueEntryId}")]
         [HttpGet]
         public async Task<IActionResult> GetEstimatedWaitingTime(int queueEntryId)
@@ -87,6 +66,31 @@ namespace WarteSchlange.API.CustomControllers
             return Ok(position < 0 ? 1 : ++position);
         }
 
+        [Route("getReadyState/{queueEntryId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetReadyState(int queueEntryId)
+        {
+            QueueEntryModel queueEntry = await _context.QueueEntries.FindAsync(queueEntryId);
+            if (queueEntry == null)
+                return BadRequest("Entry not found");
+
+            QueueModel queue = await _context.Queues.FindAsync(queueEntry.QueueId);
+            if (queueEntry == null)
+                return BadRequest("Queue not found");
+
+            int entriesBefore = _context.QueueEntries.Where(entry => entry.EntryTime < queueEntry.EntryTime
+                                                                  && entry.QueueId == queueEntry.QueueId).Count();
+
+            if(entriesBefore < queue.AtTheReadyCount)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
+        }
+
 
         [Route("getQueueState/{queueId}")]
         [HttpGet]
@@ -115,7 +119,7 @@ namespace WarteSchlange.API.CustomControllers
 
         [Route("getQueuesForCompany/{companyId}")]
         [HttpGet]
-        public IEnumerable<QueueModel> getQueuesForCompany(int companyId)
+        public IEnumerable<QueueModel> GetQueuesForCompany(int companyId)
         {
             IEnumerable<QueueModel> queuesForCompany = _context.Queues.Where(queue => queue.CompanyId == companyId);
             return queuesForCompany;
