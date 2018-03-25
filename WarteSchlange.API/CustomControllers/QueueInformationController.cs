@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WarteSchlange.API.Helpers;
 using WarteSchlange.API.Models;
 using WarteSchlange.API.ViewModels;
 
@@ -14,10 +15,12 @@ namespace WarteSchlange.API.CustomControllers
     public class QueueInformationController : Controller
     {
         private readonly MainContext _context;
+        private QueueHelper queueHelper;
 
         public QueueInformationController(MainContext context)
         {
             _context = context;
+            queueHelper = new QueueHelper(context);
         }
         
         [HttpGet("positionInformation/{queueItemId}")]
@@ -37,6 +40,29 @@ namespace WarteSchlange.API.CustomControllers
             catch (Exception)
             {
                 throw; //TODO: some error handling
+            }
+        }
+
+
+        [Route("getQueueState/{queueId}")]
+        [HttpGet]
+        public IActionResult GetQueueState(int queueId)
+        {
+            // TODO: Check if Queue exists
+            if (!queueHelper.QueueIsOpen(queueId))
+            {
+                return Ok("Closed");
+            }
+            else
+            {
+                if (queueHelper.QueueIsFull(queueId))
+                {
+                    return Ok("Full");
+                }
+                else
+                {
+                    return Ok("Open");
+                }
             }
         }
 

@@ -7,8 +7,37 @@ using WarteSchlange.API.Models;
 
 namespace WarteSchlange.API.Helpers
 {
-    public static class QueueHelpers
+    public class QueueHelper
     {
+        private readonly MainContext _context;
+
+        public QueueHelper(MainContext context)
+        {
+            _context = context;
+        }
+        
+        public bool EntryIsAtTheReady(QueueEntryModel entry)
+        {
+            int entriesBefore = _context.QueueEntries.Where(item => item.QueueId == entry.QueueId && item.EntryTime < entry.EntryTime).Count();
+            int queueAtTheReadyCount = _context.Queues.Where(queue => queue.Id == entry.QueueId).Single().AtTheReadyCount;
+            return entriesBefore < queueAtTheReadyCount;
+        }
+
+        public bool QueueIsFull(int queueId)
+        {
+            int entriesInQueue = _context.QueueEntries.Where(entry => entry.QueueId == queueId).Count();
+            int queueMaxLength = _context.Queues.Where(queue => queue.Id == queueId).Single().MaxLength;
+            return entriesInQueue < queueMaxLength;
+        }
+
+        public bool QueueIsOpen(int queueId)
+        {
+            //TODO
+            //var openingTimes = _context.OpeningTimes.Where( openingTime => openingTime.)
+            return true;
+        }
+
+
         public static string GenerateQueueIdentification(int queueId, MainContext context)
         {
             var queueIdentifications = context.QueueEntries.Where(x => x.QueueId == queueId).Select(x => x.IdentificationCode);
@@ -45,5 +74,7 @@ namespace WarteSchlange.API.Helpers
             // We messed this up if it gets here...
             return null;
         }
+
+
     }
 }

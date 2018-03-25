@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WarteSchlange.API.Helpers;
 using WarteSchlange.API.Models;
+using WarteSchlange.API.ViewModels;
 
 namespace WarteSchlange.API.CustomControllers
 {
@@ -13,14 +16,15 @@ namespace WarteSchlange.API.CustomControllers
     public class ManageQueueController : Controller
     {
         private readonly MainContext _context;
+        private QueueHelper queueHelper;
 
         public ManageQueueController(MainContext context)
         {
             _context = context;
+            queueHelper = new QueueHelper(context);
         }
-
-        [Route("resolveEntry")]
-        [HttpDelete]
+        
+        [HttpDelete("resolveEntry/{entryId}")]
         public async Task<IActionResult> ResolveEntry([FromRoute] int entryId)
         {
             IActionResult result = null;
@@ -28,11 +32,11 @@ namespace WarteSchlange.API.CustomControllers
 
             if(entryToDelete == null)
             {
-                result = BadRequest();
+                result = BadRequest("Entry not found");
             }
             else
             {
-                if(EntryIsAtTheReady(entryToDelete))
+                if(queueHelper.EntryIsAtTheReady(entryToDelete))
                 {
                     _context.QueueEntries.Remove(entryToDelete);
                     await _context.SaveChangesAsync();
@@ -40,8 +44,7 @@ namespace WarteSchlange.API.CustomControllers
                 }
                 else
                 {
-                    // TODO: Error message
-                    result = BadRequest();
+                    result = BadRequest("Entry is not ready yet");
                 }
             }
 
@@ -57,26 +60,59 @@ namespace WarteSchlange.API.CustomControllers
 
             if (entryToDelete == null)
             {
-                result = BadRequest();
+                result = BadRequest("Entry not found");
             }
             else
             {
                 _context.QueueEntries.Remove(entryToDelete);
                 await _context.SaveChangesAsync();
                 result = Ok(); // TODO: Check/Update ETA
-
             }
 
             return result;
         }
 
-        private bool EntryIsAtTheReady(QueueEntryModel entry)
-        {
-            int entriesBefore = _context.QueueEntries.Where(item => item.QueueId == entry.QueueId && item.EntryTime < entry.EntryTime).Count();
-            int queueAtTheReadyCount = _context.Queues.Where(queue => queue.Id == entry.QueueId).Single().AtTheReadyCount;
-            return entriesBefore < queueAtTheReadyCount;
-        }
 
+        [Route("addEntry/{queueId}/{userId?}")]
+        [HttpPost]
+        public async Task<IActionResult> AddEntry(int queueId, int? userId = null)
+        {
+            if (_context.Queues.Where(queue => queue.Id == queueId).Count() != 1)
+            {
+                return BadRequest("Failed to find queue");
+            }
+
+            if(queueHelper.QueueIsFull(queueId))
+            {
+                return BadRequest("Queue is full");
+            }
+
+            if(!queueHelper.QueueIsOpen(queueId))
+            {
+                return BadRequest("Queue is closed");
+            }
+
+            QueueEntryModel entry = new QueueEntryModel()
+            {
+                UserId = -1, //UserId = userId, TODO
+                QueueId = queueId,
+                EntryTime = DateTime.Now,
+                Priority = 0, // TODO
+                IdentificationCode = QueueHelper.GenerateQueueIdentification(queueId, _context)
+            };
+
+            _context.QueueEntries.Add(entry);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Ok(entry.Id);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return BadRequest("Failed to insert entry");
+            }
+        }
 
     }
 }

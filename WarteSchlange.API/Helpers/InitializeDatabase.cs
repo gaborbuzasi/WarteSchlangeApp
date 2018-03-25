@@ -74,7 +74,7 @@ namespace WarteSchlange.API.Helpers
             {
                 EntryTime = DateTime.Now,
                 QueueId = queue.Id,
-                IdentificationCode = QueueHelpers.GenerateQueueIdentification(queue.Id, context),
+                IdentificationCode = QueueHelper.GenerateQueueIdentification(queue.Id, context),
                 Priority = 0,
                 UserId = user.Id,
             };
