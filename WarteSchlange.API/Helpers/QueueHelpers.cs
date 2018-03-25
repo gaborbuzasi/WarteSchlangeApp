@@ -27,7 +27,7 @@ namespace WarteSchlange.API.Helpers
         {
             int entriesInQueue = _context.QueueEntries.Where(entry => entry.QueueId == queueId).Count();
             int queueMaxLength = _context.Queues.Where(queue => queue.Id == queueId).Single().MaxLength;
-            return entriesInQueue < queueMaxLength;
+            return entriesInQueue <= queueMaxLength;
         }
 
         public bool QueueIsOpen(int queueId)
