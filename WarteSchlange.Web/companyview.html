@@ -122,8 +122,23 @@
         function getCompanyQueues(responseText) {
             console.log(responseText)
             json = JSON.parse(responseText);
-            json.forEach(element => {
-                console.log(element);
+            json.forEach(queue => {
+                console.log(queue);
+                
+                var request = new XMLHttpRequest();
+                request.open("GET", "https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEntriesInQueue/"+queue.id, true);
+                request.setRequestHeader("Content-type", "text/plain");
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        // Request done and OK!
+                        qItems = JSON.parse(request.responseText);
+                        console.log(queue + " " + qItems);
+                        
+                    }
+                }
+                request.send();
+
+
             });
         }
 
