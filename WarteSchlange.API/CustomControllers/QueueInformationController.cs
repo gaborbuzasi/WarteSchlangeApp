@@ -125,10 +125,10 @@ namespace WarteSchlange.API.CustomControllers
             return queuesForCompany;
         }
 
-        [HttpGet("getEntriesInQueue/{queueItemId}")]
-        public IEnumerable<QueueEntryModel> GetEntriesInQueue(int queueItemId)
+        [HttpGet("getEntriesInQueue/{queueId}")]
+        public IEnumerable<QueueEntryModel> GetEntriesInQueue(int queueId)
         {
-            var entries = _context.QueueEntries.Where(entry => entry.QueueId == queueItemId).OrderBy( item => item.EntryTime );
+            var entries = _context.QueueEntries.Where(entry => entry.QueueId == queueId).OrderBy( item => item.EntryTime );
             return entries;
         }
     }
