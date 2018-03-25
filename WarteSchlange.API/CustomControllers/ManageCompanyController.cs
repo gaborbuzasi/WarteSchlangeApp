@@ -19,6 +19,7 @@ namespace WarteSchlange.API.CustomControllers
         public ManageCompanyController(MainContext context)
         {
             _context = context;
+            queueHelper = new QueueHelper(context);
         }
 
         [Route("createCompany")]
@@ -37,8 +38,9 @@ namespace WarteSchlange.API.CustomControllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception ex)
             {
+                ExceptionHandler.LogException(ex.StackTrace, ExceptionHandler.ErrorLevel.WARNING, _context);
                 return BadRequest("Failed to update Database");
             }
 

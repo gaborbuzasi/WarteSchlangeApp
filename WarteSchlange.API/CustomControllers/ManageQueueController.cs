@@ -108,8 +108,9 @@ namespace WarteSchlange.API.CustomControllers
                 await _context.SaveChangesAsync();
                 return Ok(entry.Id);
             }
-            catch
+            catch (Exception ex)
             {
+                ExceptionHandler.LogException(ex.StackTrace, ExceptionHandler.ErrorLevel.WARNING, _context);
                 return BadRequest("Failed to insert entry");
             }
         }
@@ -124,8 +125,9 @@ namespace WarteSchlange.API.CustomControllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception ex)
             {
+                ExceptionHandler.LogException(ex.StackTrace, ExceptionHandler.ErrorLevel.WARNING, _context);
                 return BadRequest("Failed to update database");
             }
 
