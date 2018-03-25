@@ -156,7 +156,7 @@
             makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getQueuesForCompany/"+companyID, "GET", getCompanyQueues);
         }
 
-        setInterval(fetchData(), 5000);
+        setInterval(fetchData, 5000);
     </script>
 
 </body>
