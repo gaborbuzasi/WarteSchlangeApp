@@ -163,7 +163,13 @@
                         if (request.readyState == 4 && request.status == 200) {
                             // Request done an OK!
                             console.log(request.response);
-                           
+                            var myObject = JSON.parse("my json string");
+                            var jsonData = JSON.parse(myMessage);
+                            for (var i = 0; i < jsonData.queues.length; i++) { 
+                                var queue=jsonData.queues[i];
+                                console.log(queue.name);
+                            }
+
                         }
                     }
                     request.send();
