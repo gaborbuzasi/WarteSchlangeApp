@@ -125,6 +125,9 @@
             json.forEach(queue => {
                 console.log(queue);
                 
+                container = document.createElement("listbox")
+                container.innerText = queue.name;
+
                 var request = new XMLHttpRequest();
                 request.open("GET", "https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEntriesInQueue/"+queue.id, true);
                 request.setRequestHeader("Content-type", "text/plain");
@@ -134,6 +137,12 @@
                         qItems = JSON.parse(request.responseText);
                         console.log(queue + " " + qItems);
                         
+                        qItems.forEach(qItem => {
+                            row = document.createElement("row");
+                            row.innerText = qItem.identificationCode;
+                            container.appendChild( row );
+                        });
+
                     }
                 }
                 request.send();
