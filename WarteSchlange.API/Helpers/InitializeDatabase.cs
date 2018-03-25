@@ -33,6 +33,17 @@ namespace WarteSchlange.API.Helpers
                 ImageId = image.Id
             };
 
+            var company2 = new CompanyModel
+            {
+                Category = "Utilities",
+                Email = "info@sauermacher.de",
+                Location = "Munchen",
+                Name = "Sauermacher GmbH",
+                Phone = "+4901234534789",
+                Website = "https://sauchermacher.de",
+                ImageId = image.Id
+            };
+
             var openingTime = new OpeningTimeModel
             {
                 Open = DateTime.Now.AddHours(-5),
@@ -40,6 +51,7 @@ namespace WarteSchlange.API.Helpers
             };
 
             context.Companies.Add(company);
+            context.Companies.Add(company2);
             context.OpeningTimes.Add(openingTime);
             context.SaveChanges();
 
@@ -54,32 +66,56 @@ namespace WarteSchlange.API.Helpers
                 Name = "Dr. Peter Artoli's queue",
                 MaxLength = 20,
                 OpeningTimeId = openingTime.Id,
-                RequireSignup = false
+                RequireSignup = false,
+                AtTheReadyTimeout = 300,
+                AtTheReadyCount = 1
+            };
+
+            var queue2 = new QueueModel
+            {
+                AllowMultipleEntries = false,
+                AverageWaitTimeSeconds = 400,
+                CompanyId = company2.Id,
+                Description = "Utility bill queue",
+                ImageId = image.Id,
+                Location = "Room 1/A",
+                Name = "Customer services queue",
+                MaxLength = 10,
+                OpeningTimeId = openingTime.Id,
+                RequireSignup = false,
+                AtTheReadyTimeout = 120,
+                AtTheReadyCount = 1
             };
 
             context.Queues.Add(queue);
             context.SaveChanges();
 
             var user = new UserModel {
-                Email = "usersemail@address.com",
+                Email = "user@address.com",
                 Name = "IamYourFirstUser",
                 Phone = "+49001912836",
                 CompanyId = company.Id
             };
 
-            context.Users.Add(user);
-            context.SaveChanges();
-
-            var queueEntry = new QueueEntryModel
+            var user2 = new UserModel
             {
-                EntryTime = DateTime.Now,
-                QueueId = queue.Id,
-                IdentificationCode = QueueHelper.GenerateQueueIdentification(queue.Id, context),
-                Priority = 0,
-                UserId = user.Id,
+                Email = "usersemail@address.com",
+                Name = "IamYourSecondUser",
+                Phone = "+49001912336",
+                CompanyId = company2.Id
             };
 
-            context.QueueEntries.Add(queueEntry);
+            var user3 = new UserModel
+            {
+                Email = "usersemail@address.com",
+                Name = "IamYourThirdUser",
+                Phone = "+490019123836",
+                CompanyId = company.Id
+            };
+
+            context.Users.Add(user);
+            context.Users.Add(user2);
+            context.Users.Add(user3);
             context.SaveChanges();
 
             InitializeMetaData(context);
