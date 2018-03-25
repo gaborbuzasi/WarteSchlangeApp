@@ -162,8 +162,9 @@
             makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getQueuesForCompany/"+companyID, "GET", getCompanyQueues);
         }
 
+
         fetchData();
-        setInterval(window.location.reload, 5000);
+        setInterval(function() {window.location.reload(true)}, 5000);
     </script>
 
 </body>
