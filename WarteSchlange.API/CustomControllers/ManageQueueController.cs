@@ -108,11 +108,28 @@ namespace WarteSchlange.API.CustomControllers
                 await _context.SaveChangesAsync();
                 return Ok(entry.Id);
             }
-            catch (DbUpdateConcurrencyException ex)
+            catch
             {
                 return BadRequest("Failed to insert entry");
             }
         }
 
+        [Route("createQueue")]
+        [HttpPost]
+        public async Task<IActionResult> CreateQueue([FromBody] QueueModel newQueue)
+        {
+            _context.Add(newQueue);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest("Failed to update database");
+            }
+
+            return Ok(newQueue.Id);
+        }
     }
 }
