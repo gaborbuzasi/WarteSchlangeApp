@@ -176,19 +176,7 @@
                 }
             makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
 
-    function getPicure(url) {
-        var request = new XMLHttpRequest();
-        var postDestination = url;
-        request.open("GET", postDestination, true);
-        request.setRequestHeader("Content-type", "text/plain");
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                 document.getElementById("landingPicture").src = jsonData.url;
-            }
-        }
-        request.send();
-    }
-    makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/images/" + qItemID);
+ 
 
     function getQueueInfo(url) {
         var request = new XMLHttpRequest();
@@ -202,6 +190,8 @@
 
                 var jsonData = JSON.parse(request.response);
                 console.log(jsonData.name);
+                var imageID = jsonData.imageID;
+                console.log("Image id:" +imageID);
                 document.getElementById("description").innerHTML = jsonData.description;
                 document.getElementById("namequeue").innerHTML = jsonData.name;
                
@@ -226,7 +216,20 @@
     getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/1");
 
      
-           
+              function getPicure(url) {
+                    var request = new XMLHttpRequest();
+                    var postDestination = url;
+                    request.open("GET", postDestination, true);
+                    request.setRequestHeader("Content-type", "text/plain");
+                    request.onreadystatechange = function () {
+                        if (request.readyState == 4 && request.status == 200) {
+                            document.getElementById("landingPicture").src = jsonData.url;
+                        }
+                    }
+                    request.send();
+                }
+
+                makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/images/" + imageID);
             
 
             new QRCode(document.getElementById("qrcode"), "google.de/"+qItemID);
