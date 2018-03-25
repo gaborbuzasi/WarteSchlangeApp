@@ -35,8 +35,9 @@ namespace WarteSchlange.API.CustomControllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception ex)
             {
+                ExceptionHandler.LogException(ex.StackTrace, ExceptionHandler.ErrorLevel.WARNING, _context);
                 return BadRequest("Failed to update database");
             }
 
