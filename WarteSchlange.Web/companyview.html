@@ -127,7 +127,7 @@
                 
                 container = document.createElement("listbox")
                 container.innerText = queue.name;
-                document.insertBefore(container, document.getElementById("button"));
+                document.getElementById("main").insertBefore(container, document.getElementById("button"));
 
                 var request = new XMLHttpRequest();
                 request.open("GET", "https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEntriesInQueue/"+queue.id, true);
@@ -148,6 +148,7 @@
                 }
                 request.send();
                 
+                var parent = document.getElementById("main");
                 var b = document.getElementById("button");
                 //document.getElementById("main").insertBefore(b, container);
                 //document.appendChild(container);dasd
