@@ -63,7 +63,28 @@ namespace WarteSchlange.API.Helpers
 
         public async void RemoveTimedoutQueueEntries(int queueId)
         {
+            IEnumerable<QueueEntryModel> queueEntries = _context.QueueEntries.Where(entry => entry.QueueId == queueId
+                                                                                 && entry.WasReadyAt != null);
 
+            QueueModel queue = await _context.Queues.FindAsync(queueId);
+
+            foreach(QueueEntryModel entry in queueEntries)
+            {
+                TimeSpan timeSinceReady = (TimeSpan) (DateTime.Now - entry.WasReadyAt);
+                if(timeSinceReady.TotalSeconds > queue.AtTheReadyTimeout)
+                {
+                    _context.Remove(entry);
+                }
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.LogException(ex.StackTrace, ExceptionHandler.ErrorLevel.WARNING, _context);
+            }
         }
 
 

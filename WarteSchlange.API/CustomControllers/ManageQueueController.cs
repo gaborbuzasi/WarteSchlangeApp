@@ -54,6 +54,7 @@ namespace WarteSchlange.API.CustomControllers
             QueueEntryModel entryToDelete = _context.QueueEntries.Where(entry => entry.IdentificationCode == entryName
                                                                               && entry.QueueId == queueId).Single();
 
+
             if(entryToDelete == null)
             {
                 return BadRequest("Entry not found");
@@ -77,21 +78,21 @@ namespace WarteSchlange.API.CustomControllers
         [HttpDelete] 
         public async Task<IActionResult> DeleteEntry([FromRoute] int entryId)
         {
-            IActionResult result = null;
             QueueEntryModel entryToDelete = await _context.QueueEntries.FindAsync(entryId);
 
             if (entryToDelete == null)
             {
-                result = BadRequest("Entry not found");
+                return BadRequest("Entry not found");
             }
             else
             {
+                int queueId = entryToDelete.QueueId;
                 _context.QueueEntries.Remove(entryToDelete);
                 await _context.SaveChangesAsync();
-                result = Ok(); // TODO: Check/Update ETA
+                queueHelper.RemoveTimedoutQueueEntries(queueId);
+                queueHelper.UpdateAtTheReady(queueId);
+                return Ok(); // TODO: Check/Update ETA
             }
-
-            return result;
         }
 
 
