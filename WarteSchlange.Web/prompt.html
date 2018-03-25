@@ -7,7 +7,7 @@
         <script>
              function postQueueEntry() {
                     var request = new XMLHttpRequest();
-                    var postDestination = "api/joinQueue";
+                    var postDestination = "https://warteschlangeapi.azurewebsites.net/api/joinQueue";
                     request.open("POST", postDestination, true);
                     request.setRequestHeader("Content-type", "application/json");
                     request.onreadystatechange = function () {
