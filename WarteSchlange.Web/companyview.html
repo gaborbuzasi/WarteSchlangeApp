@@ -81,7 +81,10 @@
         // Foreach queue:
         //      Get Queueentries      
         //      -> Display 
-        var companyID = 10;
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var companyID = url.searchParams.get("c");
+        
 
         function makeRequest(url, method, callback) {
             var request = new XMLHttpRequest();
