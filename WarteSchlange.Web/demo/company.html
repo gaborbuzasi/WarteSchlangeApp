@@ -68,7 +68,8 @@
                 json = JSON.parse(responseText);
                 json.forEach(queue => {
                     console.log(queue);
-                    
+                    if(queue.id != 1)
+                        return;
                     container = document.createElement("div")
                     container.id = "listbox";
                     container.classList.add("queueBox");
