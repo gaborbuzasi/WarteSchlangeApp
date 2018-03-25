@@ -43,12 +43,27 @@ namespace WarteSchlange.API.CustomControllers
             }
         }
 
+        [Route("getEstimatedWaitingTime")]
+        [HttpGet]
+        public IActionResult GetEstimatedWaitingTime(int queueEntryId)
+        {
+            QueueEntryModel queueEntry = _context.QueueEntries.Where(entry => entry.Id == queueEntryId).Single();
+
+            int averageQueueWaitingTime = _context.Queues.Where(queue => queue.Id == queueEntry.QueueId).Single().AverageWaitTimeSeconds;
+            int entriesBefore = _context.QueueEntries.Where(entry => entry.EntryTime < queueEntry.EntryTime).Count();
+
+            return Ok(averageQueueWaitingTime * entriesBefore);
+        }
+
 
         [Route("getQueueState/{queueId}")]
         [HttpGet]
         public IActionResult GetQueueState(int queueId)
         {
-            // TODO: Check if Queue exists
+            if(!queueHelper.QueueExists(queueId))
+            {
+                return BadRequest("Queue doesn't exist");
+            }
             if (!queueHelper.QueueIsOpen(queueId))
             {
                 return Ok("Closed");

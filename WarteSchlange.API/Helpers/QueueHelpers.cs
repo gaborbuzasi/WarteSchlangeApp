@@ -37,6 +37,11 @@ namespace WarteSchlange.API.Helpers
             return true;
         }
 
+        public bool QueueExists(int queueId)
+        {
+            return _context.Queues.Where(queue => queue.Id == queueId).Count() >= 1;
+        }
+
 
         public static string GenerateQueueIdentification(int queueId, MainContext context)
         {
@@ -61,7 +66,7 @@ namespace WarteSchlange.API.Helpers
                         int matchCount = 0; 
                         foreach (var ident in queueIdentifications)
                         {
-                            if (regex.Match(ident).Success)
+                            if (regex.Match(ident ?? "").Success)
                             {
                                 matchCount++;
                             }

@@ -94,7 +94,7 @@ namespace WarteSchlange.API.CustomControllers
 
             QueueEntryModel entry = new QueueEntryModel()
             {
-                UserId = -1, //UserId = userId, TODO
+                UserId = userId,
                 QueueId = queueId,
                 EntryTime = DateTime.Now,
                 Priority = 0, // TODO
