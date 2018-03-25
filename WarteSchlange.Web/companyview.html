@@ -126,6 +126,7 @@
                     if (request.readyState == 4 && request.status == 200) {
                         // Request done and OK!
                         qItems = JSON.parse(request.responseText);
+                        console.log("DEBUG: " + request.responseText);
                         console.log(queue + " " + qItems);
                         
                         qItems.forEach(qItem => {
@@ -162,8 +163,9 @@
             makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getQueuesForCompany/"+companyID, "GET", getCompanyQueues);
         }
 
+
         fetchData();
-        setInterval(fetchData, 3000);
+        setInterval(fetchData, 5000);
     </script>
 
 </body>
