@@ -41,7 +41,7 @@
     
     <body>
         <div id="head">
-        <h1>You are in the "<span id="namequeue"></span>"</h1>
+        <h1>You are in the <br>"<span id="namequeue"></span>"</h1>
             <span id="subtitle">Estimated Remaining Time:</span><br>
             
             <span id="time">(no estimate)</span><br>
@@ -176,6 +176,20 @@
                 }
             makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
 
+    function getPicure(url) {
+        var request = new XMLHttpRequest();
+        var postDestination = url;
+        request.open("GET", postDestination, true);
+        request.setRequestHeader("Content-type", "text/plain");
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                 document.getElementById("landingPicture").src = jsonData.url;
+            }
+        }
+        request.send();
+    }
+    makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/images/" + qItemID);
+
     function getQueueInfo(url) {
         var request = new XMLHttpRequest();
         var postDestination = url;
@@ -190,6 +204,7 @@
                 console.log(jsonData.name);
                 document.getElementById("description").innerHTML = jsonData.description;
                 document.getElementById("namequeue").innerHTML = jsonData.name;
+               
                 //         document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds);
                 document.getElementById("limit").innerHTML = jsonData.maxLength;
                 document.getElementById("locationtxt").innerHTML = jsonData.location;
