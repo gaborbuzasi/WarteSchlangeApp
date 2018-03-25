@@ -163,12 +163,13 @@
                         if (request.readyState == 4 && request.status == 200) {
                             // Request done an OK!
                             console.log(request.response);
-                            document.getElementById("openingtimes").innerHTML = "afsfafsdfssffsf";
+                           
                         }
                     }
                     request.send();
+                     document.getElementById("openingtimes").innerHTML = "afsfafsdfssffsf";
                 }
-                getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/"+qItemID);
+                getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/2");
            
             
 
