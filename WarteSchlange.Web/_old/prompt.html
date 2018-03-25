@@ -6,20 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
              function postQueueEntry() {
-                var request = new XMLHttpRequest();
-                var postDestination = "https://warteschlangeapi.azurewebsites.net/api/ManageQueue/addEntry/2";
-                request.open("POST", postDestination, true);
-                request.setRequestHeader("Content-type", "application/json");
-                request.onreadystatechange = function () {
-                    if (request.readState === 2 && request.status == 200) {
-                        var json = JSON.parse(request.responseText);
-                        console.log("Connect is established!");
+                    var request = new XMLHttpRequest();
+                    var postDestination = "https://warteschlangeapi.azurewebsites.net/api/joinQueue";
+                    request.open("POST", postDestination, true);
+                    request.setRequestHeader("Content-type", "application/json");
+                    request.onreadystatechange = function () {
+                        if (request.readState === 2 && request.status == 200) {
+                            var json = JSON.parse(request.responseText);
+                            console.log("Connect is established!");
 
-                    }
-                    alert("This has been called!");
-                };
-                request.send();
-            }
+                        }
+
+                    };
+                    var dataToSend = JSON.stringify({"QueueId":2});
+                    request.send(dataToSend);
+                    console.log(request.responseText);
+					
+                }
         
         </script>
     </head>
