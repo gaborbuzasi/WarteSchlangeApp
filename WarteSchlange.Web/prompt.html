@@ -30,21 +30,54 @@
                 };
                 request.send();
             }
+
+                          function getQueueInfo(url) {
+                                var request = new XMLHttpRequest();
+                                var postDestination = url;
+                                request.open("GET", postDestination, true);
+                                request.setRequestHeader("Content-type", "text/plain");
+                                request.onreadystatechange = function () {
+                                    if (request.readyState == 4 && request.status == 200) {
+                                        // Request done an OK!
+                                        console.log(request.response);
+
+                                        var jsonData = JSON.parse(request.response);
+                                        console.log(jsonData.name);
+                                        document.getElementById("description").innerHTML = jsonData.description;
+                                        document.getElementById("namequeue").innerHTML = jsonData.name;
+                                        document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds) / 60;
+                                        document.getElementById("limit").innerHTML = jsonData.maxLength;   
+                                        //    document.getElementById("").innerHTML = "";   
+                                        var signintext;
+                                        if(jsonData.requiresignup){
+                                            signintext ="Please, sign in!";
+                                        } else {
+                                            signintext = "No sign up required!!!"
+                                        }
+                                        document.getElementById("signintext").innerHTML = signintext;   
+
+
+                                    }
+                                }
+                                request.send();
+
+                            }
+                            getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/2");
+
+                        
         
         </script>
     </head>
     <body>
         <div id="main">
-            <h1>Welcome at CompanyXY</h1>
+            <h1>Welcome at "<span id="namequee"></span></h1>
             <h2>Do you want to queue?</h2>
             <div id="listbox">
           
             <div id="listheading">Rollercoaster Queue</div>
                 <img id="landingPicture" src="achterbahn.jpg" />
             <div id="text">
-                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-            </div>
+               <span id="description"></span> </div>
             <div id="row">
                 <div id="cellicon">
                     <img src="time.png" id="listicon">
@@ -52,6 +85,13 @@
                 <div class="celltext">Mo. -Fr. 08:00 - 19:00
                     <br>Sa. 09:00-13:00</div>
             </div>
+                    <div id="row">
+                        <div id="cellicon">
+                            <img src="time.png" id="listicon">
+                        </div>
+                        <div class="celltext">Mo. -Fr. 08:00 - 19:00
+                            <br>Sa. 09:00-13:00</div>
+                    </div>
             <div id="row">
                 <div id="cellicon">
                     <img src="starttime.png" id="listicon">
@@ -72,8 +112,7 @@
             <div id="listbox">
                 <div id="listheading">Required to take with</div>
                 <div id="text">
-                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                        aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergre 
+                 <span id="signintext"></span>
                 </div>
             </div>
         

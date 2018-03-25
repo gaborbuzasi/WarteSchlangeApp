@@ -153,7 +153,7 @@
                 }
             makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
 
-              function getQueueInfo(url) {
+function getQueueInfo(url) {
                 var request = new XMLHttpRequest();
                     var postDestination = url;
                     request.open("GET", postDestination, true);
@@ -167,6 +167,7 @@
                             console.log(jsonData.name);
                             document.getElementById("description").innerHTML = jsonData.description;   
                             document.getElementById("namequeue").innerHTML = jsonData.name;   
+                            document.getElementById("averageWaitTimeSeconds").innerHTML = (jsonData.averageWaitTimeSeconds)/6;
                         //    document.getElementById("").innerHTML = "";   
                  
 
