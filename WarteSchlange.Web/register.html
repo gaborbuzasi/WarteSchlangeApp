@@ -18,7 +18,7 @@
             function makeRequest(url) {
                 var request = new XMLHttpRequest();
                     var postDestination = url;
-                    request.open("POST", postDestination, false);
+                    request.open("GET", postDestination, true);
                     request.setRequestHeader("Content-type", "text/plain");
                     request.onreadystatechange = function () {
                         if (request.readyState == 4 && request.status == 200) {
@@ -26,10 +26,11 @@
                             return request.responseText;
                         }
                     }
+                    request.send();
                 }
 
             
-            // Get people in front
+            // Get people in front 
 
             // Get magic words
 
@@ -60,19 +61,19 @@
                     <div id="cellicon">
                         <img src="average.jpg" id="listicon">
                     </div>
-                    <div id="celltext">Average Waiting Time ~? min</div>
+                    <div class="celltext">Average Waiting Time ~? min</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
                         <img src="up.png" id="listicon">
                     </div>
-                    <div id="celltext">Max Time Customer</div>
+                    <div class="celltext">Max Time Customer</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
                         <img src="down.png" id="listicon">
                     </div>
-                    <div id="celltext">Min Time Customer</div>
+                    <div class="celltext">Min Time Customer</div>
                 </div>
                 <div id="row" style="height: 400px;">
                     <div id="qrcode" style="width: 300px; height: 300px; display: block; margin-left: auto; margin-right: auto;"></div>
@@ -89,14 +90,13 @@
                 <div id="cellicon">
                     <img src="time.png" id="listicon">
                 </div>
-                <div id="celltext">Mo. -Fr. 08:00 - 19:00
-                    <br>Sa. 09:00-13:00</div>
+                <div class="celltext" id="openingtimes">
             </div>
             <div id="row">
                 <div id="cellicon">
                     <img src="starttime.png" id="listicon">
                 </div>
-                <div id="celltext">You entered at 08:43:21</div>
+                <div class="celltext">You entered at 08:43:21</div>
             </div>
             </div>
             </div>
@@ -107,25 +107,25 @@
                     <div id="cellicon">
                         <img src="location.png" id="listicon">
                     </div>
-                    <div id="celltext">Karlsruhe</div>
+                    <div class="celltext">Karlsruhe</div>
                 </div>
                 <div id="row">
                     <div id="cellicon">
                         <img src="web.png" id="listicon">
                     </div>
-                    <div id="celltext">www.company.de</div>
+                    <div class="celltext">www.company.de</div>
                 </div>
                     <div id="row">
                         <div id="cellicon">
                             <img src="email.png" id="listicon">
                         </div>
-                        <div id="celltext">com.pany@example.com</div>
+                        <div class="celltext">com.pany@example.com</div>
                     </div>
                 <div id="row">
                     <div id="cellicon">
                         <img src="phone.png" id="listicon">
                     </div>
-                    <div id="celltext">+049 30300 243222</div>
+                    <div class="celltext">+049 30300 243222</div>
                 </div>
             </div>
 
@@ -139,11 +139,41 @@
         <script>
 
             // Get estimated wait time
-            var waitingTime = makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
-            document.getElementById("time").innerHTML = parseInt(waitingTime) / 60;
-            console.log(waitingTime);
+            function makeTimeRequest(url) {
+                var request = new XMLHttpRequest();
+                    var postDestination = url;
+                    request.open("GET", postDestination, true);
+                    request.setRequestHeader("Content-type", "text/plain");
+                    request.onreadystatechange = function () {
+                        if (request.readyState == 4 && request.status == 200) {
+                            // Request done an OK!
+                            document.getElementById("time").innerHTML = parseInt(request.responseText) / 60;
+                        }
+                    }
+                    request.send();
+                }
+            makeTimeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getEstimatedWaitingTime/"+qItemID);
 
-            new QRCode(document.getElementById("qrcode"), qItemID);
+              function getQueueInfo(url) {
+                var request = new XMLHttpRequest();
+                    var postDestination = url;
+                    request.open("GET", postDestination, true);
+                    request.setRequestHeader("Content-type", "text/plain");
+                    request.onreadystatechange = function () {
+                        if (request.readyState == 4 && request.status == 200) {
+                            // Request done an OK!
+                            console.log(request.response);
+                           
+                        }
+                    }
+                    request.send();
+                     document.getElementById("openingtimes").innerHTML = "afsfafsdfssffsf";
+                }
+                getQueueInfo("https://warteschlangeapi.azurewebsites.net/api/queue/2");
+           
+            
+
+            new QRCode(document.getElementById("qrcode"), "google.de/"+qItemID);
         </script>
 
     </body>

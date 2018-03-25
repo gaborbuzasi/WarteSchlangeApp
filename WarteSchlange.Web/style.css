@@ -58,7 +58,7 @@
       border: none;
   }
 
-  #celltext {
+  .celltext {
       height: 40px;
       width: 300px;
       vertical-align: middle;
