@@ -121,11 +121,15 @@
 
         function getCompanyQueues(responseText) {
             console.log(responseText)
+            json = JSON.parse(responseText);
+            json.forEach(element => {
+                console.log(element);
+            });
         }
 
 
         makeRequest("https://warteschlangeapi.azurewebsites.net/api/QueueInformation/getQueuesForCompany/"+companyID, "GET", getCompanyQueues);
-
+        
     </script>
 
 </body>
