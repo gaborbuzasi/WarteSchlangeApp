@@ -85,7 +85,7 @@
                     
     
                     var request = new XMLHttpRequest();
-                    request.open("GET", "https://warteschlangeapiv2.azurewebsites.net/api/QueueInformation/getEntriesInQueue/"+queue.id, true);
+                    request.open("GET", "https://warteschlangeapiv2.azurewebsites.net/api/QueueInformation/getEntriesInQueue/1", true);
                     request.setRequestHeader("Content-type", "text/plain");
                     request.onreadystatechange = function () {
                         if (request.readyState == 4 && request.status == 200) {
