@@ -126,11 +126,10 @@
                 
                 container = document.createElement("div")
                 container.id = "listbox";
-                container.innerText = queue.name;
                 
                 var heading = document.createElement("div");
                 heading.id = "listheading";
-                heading.innerText = queue.name; 
+                heading.innerText = "Queue: " + queue.name; 
                 container.appendChild( heading );
                 
                 document.getElementById("main").insertBefore(container, document.getElementById("button"));
